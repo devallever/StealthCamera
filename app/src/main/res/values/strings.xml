@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">spycamera</string>
+
+    <string name="string_dialog_title">Tips</string>
+    <string name="string_dialog_message">You need to allow the display of pop-up window permissions</string>
+    <string name="string_dialog_setting_button">Setting</string>
+    <string name="string_dialog_cancel_button">Cancel</string>
 </resources>

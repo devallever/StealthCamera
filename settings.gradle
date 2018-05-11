@@ -1,1 +1,3 @@
-include ':app'
+include ':app',':rate','AdsLib'
+project(':rate').projectDir = new File(settingsDir, '../ads_lib/rate')
+project(':AdsLib').projectDir = new File(settingsDir, '../ads_lib/AdsLib')

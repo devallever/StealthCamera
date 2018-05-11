@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_turquoise">#00FFFF</color>
+    <color name="divide_line_white">#FFFFFF</color>
+    <color name="divide_line_turquoise">#00FFFF</color>
+    <color name="activity_bg_black">#000000</color>
+    <color name="spinner_bg_gray">#222222</color>
+    <color name="btn_bg_blue">#0f4bc8</color>
+
+    <color name="bottom_navigation_bg">#1f1f1f</color>
+    <color name="setting_item_bg">#191919</color>
+    <color name="setting_title_text">#d1d1d1</color>
+    <color name="setting_item_text">#ffffff</color>
 </resources>

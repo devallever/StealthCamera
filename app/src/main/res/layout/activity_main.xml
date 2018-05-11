@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zf.spycamera.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.zf.spycamera.activity.MainActivity"
+    android:background="@drawable/fragment_cameras_bg">
 
-    <TextView
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_spy_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/id_main_iv_camera"
+                style="@style/main_iv_style"
+                android:src="@drawable/img_secret_camera_off"/>
+
+            <ImageView
+                android:id="@+id/id_main_iv_pictures"
+                style="@style/main_iv_style"
+                android:src="@drawable/btn_pictures"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/id_main_iv_settings"
+                style="@style/main_iv_style"
+                android:src="@drawable/btn_settings"/>
+
+            <ImageView
+                style="@style/main_iv_style"
+                android:visibility="invisible"
+                android:src="@drawable/img_secret_camera_on"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
