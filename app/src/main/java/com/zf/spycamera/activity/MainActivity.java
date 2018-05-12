@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import com.mob.permission.FloatWindowManager;
 import com.mob.permission.rom.RomUtils;
 import com.mob.permission.rom.VivoUtils;
+import com.zf.spycamera.AdFactory;
+import com.zf.spycamera.Controller;
 import com.zf.spycamera.FloatWindowService;
 import com.zf.spycamera.R;
 
@@ -19,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mIvCam;
     private ImageView mIvSetting;
     private ImageView mIvPic;
+    private ImageView mIvGenCam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Controller.getIns().init(this,new AdFactory());
+//        Controller.getIns().loadInterAd(this);
+//        Controller.getIns().loadBannerAd(this);
 
         initData();
         initView();
@@ -37,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mIvCam = findViewById(R.id.id_main_iv_camera);
         mIvSetting = findViewById(R.id.id_main_iv_settings);
         mIvPic = findViewById(R.id.id_main_iv_pictures);
+        mIvGenCam = findViewById(R.id.id_main_iv_general_camera);
 
         if (FloatWindowService.mService == null) {
             mIvCam.setImageResource(R.drawable.img_secret_camera_off);
@@ -94,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //相册
+                Intent intent = new Intent(MainActivity.this, PictureActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mIvGenCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                startActivity(intent);
             }
         });
 

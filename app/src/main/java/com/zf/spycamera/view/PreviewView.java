@@ -1,4 +1,4 @@
-package com.zf.spycamera;
+package com.zf.spycamera.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.zf.spycamera.CameraManager;
+import com.zf.spycamera.R;
 import com.zf.spycamera.utils.DisplayUtil;
 import com.zf.spycamera.utils.FloatWindowUtil;
 import com.zf.spycamera.utils.SPUtil;

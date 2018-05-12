@@ -51,9 +51,9 @@
                 android:src="@drawable/btn_settings"/>
 
             <ImageView
+                android:id="@+id/id_main_iv_general_camera"
                 style="@style/main_iv_style"
-                android:visibility="invisible"
-                android:src="@drawable/img_secret_camera_on"/>
+                android:src="@drawable/btn_cameras"/>
 
         </LinearLayout>
     </LinearLayout>
