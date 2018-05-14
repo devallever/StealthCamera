@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zf.spycamera.view.CameraSurfaceView
-        android:id="@+id/id_camera_surface_view"
+    <FrameLayout
+        android:id="@+id/id_camera_fl_preview_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/id_camera_iv_take"
