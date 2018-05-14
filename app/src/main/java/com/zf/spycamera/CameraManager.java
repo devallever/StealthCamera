@@ -26,7 +26,6 @@ public enum  CameraManager {
     private static final String TAG = "CameraManager";
     private boolean isPreviewing = false;
     private boolean isCapturing = false;
-    private float mPreviwRate = -1f;
     private Camera.Parameters mParams;
 
     private Camera mCamera;
@@ -60,7 +59,6 @@ public enum  CameraManager {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             isPreviewing = false;
-            mPreviwRate = -1f;
             mCamera.release();
             mCamera = null;
         }
@@ -94,12 +92,11 @@ public enum  CameraManager {
      * 开启预览
      *
      * @param holder
-     * @param previewRate
      */
-    public void startPreview(SurfaceHolder holder, float previewRate,
+    public void startPreview(SurfaceHolder holder,
                                int maxHeight) {
-        Log.d(TAG, "doStartPreview...rate = " + previewRate
-                + ", maxHeight = " + maxHeight);
+        Log.d(TAG,
+                "maxHeight = " + maxHeight);
         if (isPreviewing) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
@@ -130,6 +127,9 @@ public enum  CameraManager {
             CameraUtil.printSupportFocusMode(mParams);
 
             List<String> focusModes = mParams.getSupportedFocusModes();
+            for (String mode: focusModes){
+                Log.d(TAG, "startPreview: mode = " + mode);
+            }
             if (focusModes.contains("continuous-video")) {
                 mParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
             }
@@ -143,7 +143,6 @@ public enum  CameraManager {
             }
 
             isPreviewing = true;
-            mPreviwRate = previewRate;
 
             // 重新get一次
             mParams = mCamera.getParameters();

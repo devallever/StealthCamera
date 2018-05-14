@@ -41,11 +41,11 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public void surfaceCreated(SurfaceHolder holder) {
         //默认全屏的比例预览
         //高宽比
-        float previewRate = DisplayUtil.getScreenRate(mContext);
+        //float previewRate = DisplayUtil.getScreenRate(mContext);
         Point p = DisplayUtil.getScreenMetrics(mContext);
         float height = p.y;
         int maxHeight = (int) (height * 3 / 5);
-        CameraManager.getIns().startPreview(mSurfaceHolder,previewRate,maxHeight);
+        CameraManager.getIns().startPreview(mSurfaceHolder,maxHeight);
     }
 
     @Override

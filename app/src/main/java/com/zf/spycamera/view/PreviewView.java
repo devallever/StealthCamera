@@ -81,12 +81,12 @@ public class PreviewView extends FrameLayout{
 //            } else if (previewSize == 3) {
 //                viewWidth = 600;
 //            }
-            viewWidth = 200;
+            viewWidth = DisplayUtil.dip2px(mContext,80f);
             float rate = DisplayUtil.getScreenRate(mContext);
             viewHeight = (int) (viewWidth * rate);
         } else {
-            viewWidth = 150;
-            viewHeight = 150;
+            viewWidth = DisplayUtil.dip2px(mContext, 60f);
+            viewHeight = DisplayUtil.dip2px(mContext, 60f);
         }
 
         CameraSurfaceView surfaceView = new CameraSurfaceView(mContext);

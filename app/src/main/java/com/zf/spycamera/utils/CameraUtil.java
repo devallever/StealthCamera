@@ -58,6 +58,8 @@ public class CameraUtil {
         }
     }
 
+    /**
+     * 获取相机拍照图片大小*/
     public static Camera.Size getPropPictureSize(Camera.Parameters parameters, int maxHeight) {
         if (parameters == null) {
             return null;
@@ -66,13 +68,17 @@ public class CameraUtil {
         int i;
         for (i = 0; i < pictureSizes.size(); i++) {
             Camera.Size size = pictureSizes.get(i);
-            if (size.width <= maxHeight) {
+            Log.d(TAG, "getPropPictureSize: width = " + size.width + " height = " + size.height  + " maxHeight = " + maxHeight);
+            if (size.height <= maxHeight) {
                 break;
             }
         }
         return pictureSizes.get(i);
     }
 
+    /**
+     * 获取相机预览大小
+     * */
     public static Camera.Size getPropPreviewSize(Camera.Parameters parameters, int maxHeight) {
         if (parameters == null) {
             return null;
@@ -81,7 +87,7 @@ public class CameraUtil {
         int i;
         for (i = 0; i < previewSizes.size(); i++) {
             Camera.Size size = previewSizes.get(i);
-            if (size.width <= maxHeight) {
+            if (size.height <= maxHeight) {
                 break;
             }
         }
