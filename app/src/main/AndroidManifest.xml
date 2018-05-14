@@ -31,6 +31,20 @@
         <activity android:name=".activity.CameraActivity"
             android:screenOrientation="portrait"/>
         <service android:name=".FloatWindowService"></service>
+
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5af2dc43f29d9841da0001e8" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="googleplay" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_LOCAL_VERSION"
+            android:value="false" >
+        </meta-data>
     </application>
 
 </manifest>

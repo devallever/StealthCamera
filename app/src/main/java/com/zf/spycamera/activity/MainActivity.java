@@ -153,6 +153,18 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        MobService.getIns().onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobService.getIns().onResume(this);
+    }
+
+    @Override
     public void onBackPressed() {
         ExitDialog exitDialog = new ExitDialog(this);
         exitDialog.setExitListener(this);
