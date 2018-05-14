@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         mIvGenCam = findViewById(R.id.id_main_iv_general_camera);
 
         if (FloatWindowService.mService == null) {
-            mIvCam.setImageResource(R.drawable.img_secret_camera_off);
+            mIvCam.setImageResource(R.drawable.ic_camera_off);
         } else {
-            mIvCam.setImageResource(R.drawable.img_secret_camera_on);
+            mIvCam.setImageResource(R.drawable.ic_camera_on);
         }
 
         mIvCam.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
                    Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
                    if (FloatWindowService.mService == null) {
                        startService(floatIntent);
-                       mIvCam.setImageResource(R.drawable.img_secret_camera_on);
+                       mIvCam.setImageResource(R.drawable.ic_camera_on);
                    } else {
                        stopService(floatIntent);
-                       mIvCam.setImageResource(R.drawable.img_secret_camera_off);
+                       mIvCam.setImageResource(R.drawable.ic_camera_off);
                    }
                }else {
                    showSettingDialog();
