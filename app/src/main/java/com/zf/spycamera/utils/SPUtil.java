@@ -19,7 +19,7 @@ public class SPUtil {
         editor.commit();
     }
 
-    public static boolean getShowPrivate(Context context){
+    public static boolean getShowPreview(Context context){
         if (context == null) {
             return false;
         }

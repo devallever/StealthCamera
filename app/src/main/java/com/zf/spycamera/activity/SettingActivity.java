@@ -42,7 +42,7 @@ public class SettingActivity extends AppCompatActivity {
         mIvPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SPUtil.setShowPreview( SettingActivity.this,!SPUtil.getShowPrivate(SettingActivity.this));
+                SPUtil.setShowPreview( SettingActivity.this,!SPUtil.getShowPreview(SettingActivity.this));
                 refreshCb();
             }
         });
@@ -50,7 +50,7 @@ public class SettingActivity extends AppCompatActivity {
         mRlPreviewCont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SPUtil.setShowPreview( SettingActivity.this,!SPUtil.getShowPrivate(SettingActivity.this));
+                SPUtil.setShowPreview( SettingActivity.this,!SPUtil.getShowPreview(SettingActivity.this));
                 refreshCb();
             }
         });
@@ -58,8 +58,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void refreshCb(){
-        if (SPUtil.getShowPrivate(this)){
-            Log.d(TAG, "refreshCb: isShow = " + SPUtil.getShowPrivate(this));
+        if (SPUtil.getShowPreview(this)){
+            Log.d(TAG, "refreshCb: isShow = " + SPUtil.getShowPreview(this));
             mIvPreview.setImageResource(R.drawable.checkbox_on);
         }else {
             mIvPreview.setImageResource(R.drawable.checkbox_off);

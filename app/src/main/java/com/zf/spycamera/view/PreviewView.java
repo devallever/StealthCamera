@@ -72,7 +72,7 @@ public class PreviewView extends FrameLayout{
     public PreviewView(Context context) {
         super(context);
         mContext = context;
-        if (SPUtil.getShowPrivate(mContext)) {
+        if (SPUtil.getShowPreview(mContext)) {
             viewWidth = DisplayUtil.dip2px(mContext,80f);
             float rate = DisplayUtil.getScreenRate(mContext);
             viewHeight = (int) (viewWidth * rate);
@@ -85,7 +85,7 @@ public class PreviewView extends FrameLayout{
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT);
-        if (SPUtil.getShowPrivate(mContext)) {
+        if (SPUtil.getShowPreview(mContext)) {
             this.addView(surfaceView, params);
         } else {
             // 把surfaceView设置成大小都为1，以便后面图片覆盖
@@ -109,16 +109,17 @@ public class PreviewView extends FrameLayout{
                 xInView = event.getX();
                 yInView = event.getY();
                 xInScreen = event.getRawX();
-                yInScreen = event.getRawY()
-                        - DisplayUtil.getStatusBarHeight(mContext);
+                //yInScreen = event.getRawY() - DisplayUtil.getStatusBarHeight(mContext);
+                yInScreen = event.getRawY();
                 xDownInScreen = xInScreen;
                 yDownInScreen = yInScreen;
                 Log.d(TAG, "x = " + xDownInScreen + ", y = " + yDownInScreen);
                 break;
             case MotionEvent.ACTION_MOVE:
                 xInScreen = event.getRawX();
-                yInScreen = event.getRawY()
-                        - DisplayUtil.getStatusBarHeight(mContext);
+                //yInScreen = event.getRawY() - DisplayUtil.getStatusBarHeight(mContext);
+                //全屏不需要减去状态了高度
+                yInScreen = event.getRawY();
                 // 手指移动距离大于20的时候更新悬浮窗的位置
                 if (Math.abs(xInScreen - xDownInScreen) > 20
                         || Math.abs(yInScreen - yDownInScreen) > 20) {
