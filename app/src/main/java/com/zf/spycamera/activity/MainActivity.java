@@ -8,16 +8,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mob.main.MobService;
 import com.mob.permission.FloatWindowManager;
 import com.mob.permission.rom.RomUtils;
 import com.mob.permission.rom.VivoUtils;
+import com.radishmobile.rate.ExitDialog;
+import com.radishmobile.rate.IExitListener;
+import com.radishmobile.rate.RateUtils;
 import com.zf.spycamera.AdFactory;
 import com.zf.spycamera.Controller;
 import com.zf.spycamera.FloatWindowService;
 import com.zf.spycamera.R;
 import com.zf.spycamera.utils.CameraUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IExitListener {
 
     private ImageView mIvCam;
     private ImageView mIvSetting;
@@ -145,5 +149,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        ExitDialog exitDialog = new ExitDialog(this);
+        exitDialog.setExitListener(this);
+        exitDialog.show();
+    }
+
+    @Override
+    public void onClickExit() {
+//		Process.killProcess(Process.myPid());
+        finish();
+    }
+
+    @Override
+    public void onClickRate() {
+        RateUtils.openAppInPlay(this, getPackageName());
+    }
+
+    @Override
+    public void onCancel() {
+
     }
 }
