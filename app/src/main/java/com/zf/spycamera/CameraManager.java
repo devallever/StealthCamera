@@ -160,12 +160,17 @@ public enum  CameraManager {
 
 
 
+    /**
+     * 获取cameraId 前置或后置摄像头，下标0开始计算
+     * @param tagInfo Camera.CameraInfo.CAMERA_FACING_BACK 或 CAMERA_FACING_FRONT*/
     private int getCameraInfoId(int tagInfo){
         Log.d(TAG, "getCameraInfoId: ");
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         // 开始遍历摄像头，得到camera info
-        int cameraId, cameraCount;
-        for (cameraId = 0, cameraCount = Camera.getNumberOfCameras(); cameraId < cameraCount; cameraId++) {
+        int cameraCount = Camera.getNumberOfCameras();
+        Log.d(TAG, "getCameraInfoId: cameraCount = " + cameraCount);
+        int cameraId;
+        for (cameraId = 0; cameraId < cameraCount; cameraId++) {
             Camera.getCameraInfo(cameraId, cameraInfo);
             if (cameraInfo.facing == tagInfo) {
                 break;

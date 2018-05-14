@@ -40,6 +40,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         //默认全屏的比例预览
+        //高宽比
         float previewRate = DisplayUtil.getScreenRate(mContext);
         Point p = DisplayUtil.getScreenMetrics(mContext);
         float height = p.y;

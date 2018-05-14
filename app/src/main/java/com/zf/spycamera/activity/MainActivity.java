@@ -15,6 +15,7 @@ import com.zf.spycamera.AdFactory;
 import com.zf.spycamera.Controller;
 import com.zf.spycamera.FloatWindowService;
 import com.zf.spycamera.R;
+import com.zf.spycamera.utils.CameraUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         mIvCam.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               if (!CameraUtil.checkCameraHardware(MainActivity.this)){
+                   return;
+               }
                //todo 启动偷拍
                if (FloatWindowManager.getInstance().applyOrShowFloatWindow(MainActivity.this)) {
                    Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
@@ -110,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         mIvGenCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!CameraUtil.checkCameraHardware(MainActivity.this)){
+                    return;
+                }
                 Intent intent = new Intent(MainActivity.this, CameraActivity.class);
                 startActivity(intent);
             }
