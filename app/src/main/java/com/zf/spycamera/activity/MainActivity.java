@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
     private void initData(){
     }
 
-    private boolean mIsStartService = false;
     private void initView(){
         mIvCam = findViewById(R.id.id_main_iv_camera);
         mIvSetting = findViewById(R.id.id_main_iv_settings);
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
                if (!CameraUtil.checkCameraHardware(MainActivity.this)){
                    return;
                }
-               //todo 启动偷拍
+
                if (FloatWindowManager.getInstance().applyOrShowFloatWindow(MainActivity.this)) {
                    Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
                    if (FloatWindowService.mService == null) {
@@ -76,24 +75,6 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
                }else {
                    showSettingDialog();
                }
-
-
-               //debug
-//               if (FloatWindowManager.getInstance().applyOrShowFloatWindow(MainActivity.this)) {
-//                   Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
-//                   if (!mIsStartService) {
-//                       //startService(floatIntent);
-//                       mIvCam.setImageResource(R.drawable.img_secret_camera_on);
-//                   } else {
-//                       //stopService(floatIntent);
-//                       mIvCam.setImageResource(R.drawable.img_secret_camera_off);
-//                   }
-//                   mIsStartService = !mIsStartService;
-//               }else {
-//                   showSettingDialog();
-//               }
-
-
            }
        });
 
@@ -173,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
 
     @Override
     public void onClickExit() {
-//		Process.killProcess(Process.myPid());
         finish();
     }
 

@@ -32,17 +32,6 @@ public class FloatWindowUtil {
      *            必须为应用程序的Context.
      */
     public static void createFloatWindow(Context context) {
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//			if (!Settings.canDrawOverlays(context)) {
-////				Toast.makeText(context, "Permit drawing over other apps permission!", Toast.LENGTH_LONG).show();
-//				Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-//						Uri.parse("package:" + context.getPackageName()));
-//				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				context.startActivity(intent);
-//				return;
-//			}
-//		}
-
         WindowManager windowManager = getWindowManager(context);
         int screenWidth = windowManager.getDefaultDisplay().getWidth();
         int screenHeight = windowManager.getDefaultDisplay().getHeight();

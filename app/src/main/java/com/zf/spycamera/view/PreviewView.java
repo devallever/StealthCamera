@@ -73,14 +73,6 @@ public class PreviewView extends FrameLayout{
         super(context);
         mContext = context;
         if (SPUtil.getShowPrivate(mContext)) {
-//            int previewSize = SharedPreferenceUtil.getIntValue(SharedPreferenceUtil.SHARED_PREVIEW_SIZE);
-//            if (previewSize == 1) {
-//                viewWidth = 200;
-//            } else if (previewSize == 2) {
-//                viewWidth = 400;
-//            } else if (previewSize == 3) {
-//                viewWidth = 600;
-//            }
             viewWidth = DisplayUtil.dip2px(mContext,80f);
             float rate = DisplayUtil.getScreenRate(mContext);
             viewHeight = (int) (viewWidth * rate);
@@ -141,11 +133,6 @@ public class PreviewView extends FrameLayout{
 
                     Toast.makeText(mContext,"Done",
                             Toast.LENGTH_SHORT).show();
-//                    if (SharedPreferenceUtil
-//                            .getIntValue(SharedPreferenceUtil.SHARED_SHOW_TAKING) == 1) {
-//                        Toast.makeText(mContext, R.string.toast_show_taking,
-//                                Toast.LENGTH_SHORT).show();
-//                    }
                 }
                 break;
             default:
