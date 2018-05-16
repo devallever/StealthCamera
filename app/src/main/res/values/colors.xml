@@ -16,4 +16,6 @@
     <color name="setting_item_bg">#191919</color>
     <color name="setting_title_text">#d1d1d1</color>
     <color name="setting_item_text">#ffffff</color>
+
+    <color name="gray_50">#fafafa</color>
 </resources>

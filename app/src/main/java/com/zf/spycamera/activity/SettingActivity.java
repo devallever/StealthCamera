@@ -52,9 +52,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void refreshCb(){
         if (SPUtil.getShowPreview(this)){
             Log.d(TAG, "refreshCb: isShow = " + SPUtil.getShowPreview(this));
-            mIvPreview.setImageResource(R.drawable.checkbox_on);
+            mIvPreview.setImageResource(R.drawable.ic_preview_on);
         }else {
-            mIvPreview.setImageResource(R.drawable.checkbox_off);
+            mIvPreview.setImageResource(R.drawable.ic_preview_off);
         }
     }
 

@@ -30,6 +30,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.CameraActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GalleryActivity"
+            android:screenOrientation="portrait"/>
         <service android:name=".FloatWindowService"></service>
 
 

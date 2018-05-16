@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.zf.spycamera.PicAdapter;
+import com.zf.spycamera.adapter.PicAdapter;
 import com.zf.spycamera.R;
 import com.zf.spycamera.utils.FileUtil;
 

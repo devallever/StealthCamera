@@ -5,4 +5,6 @@
     <string name="string_dialog_message">您的手机没有授予悬浮窗权限，请开启后再试</string>
     <string name="string_dialog_setting_button">设置</string>
     <string name="string_dialog_cancel_button">取消</string>
+
+    <string name="show_preview">显示预览</string>
 </resources>

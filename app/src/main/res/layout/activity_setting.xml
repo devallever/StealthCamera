@@ -3,26 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/activity_bg_black">
+    android:background="@color/gray_50">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Secret Camera Setting"
-        android:textColor="@color/text_white"
-        android:textSize="30sp"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_title"/>
     <RelativeLayout
         android:id="@+id/id_setting_rl_preview_container"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/spinner_bg_gray">
+        android:layout_height="60dp"
+        android:background="@color/text_white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="显示预览"
-            android:textColor="@color/text_white"
+            android:textColor="@color/activity_bg_black"
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:textSize="16sp"/>
@@ -31,9 +28,10 @@
             android:id="@+id/id_setting_iv_prieview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/checkbox_off"
+            android:src="@drawable/ic_preview_off"
             android:layout_alignParentRight="true"
-            android:padding="10dp"/>
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"/>
     </RelativeLayout>
 
 </LinearLayout>

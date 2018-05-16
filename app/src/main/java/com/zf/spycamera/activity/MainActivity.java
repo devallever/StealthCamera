@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
             @Override
             public void onClick(View v) {
                 //相册
-                Intent intent = new Intent(MainActivity.this, PictureActivity.class);
+                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
             }
         });
