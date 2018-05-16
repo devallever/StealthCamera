@@ -20,7 +20,8 @@ public class FileUtil {
      */
     public static String initPath(){
         String path = null;
-        path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + "zhifei/spycamera";
+        //path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + "zhifei/spycamera";
+        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath()+"/" + "zhifei/spycamera";
         File f = new File(path);
         if(!f.exists()){
             f.mkdirs();

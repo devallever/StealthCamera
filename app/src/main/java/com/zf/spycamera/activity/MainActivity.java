@@ -3,6 +3,9 @@ package com.zf.spycamera.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +23,10 @@ import com.zf.spycamera.Controller;
 import com.zf.spycamera.FloatWindowService;
 import com.zf.spycamera.R;
 import com.zf.spycamera.utils.CameraUtil;
+import com.zf.spycamera.utils.FileUtil;
+
+import java.io.File;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IExitListener {
 
@@ -91,8 +98,12 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
             @Override
             public void onClick(View v) {
                 //相册
-                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+                Intent intent = new Intent(MainActivity.this, PictureActivity.class);
                 startActivity(intent);
+
+//                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+//                startActivity(intent);
+
             }
         });
 

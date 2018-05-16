@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/activity_bg_black">
+    android:background="@color/text_white">
+
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_spy_title"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
-
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_title"
+        android:scaleType="centerCrop"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_picture_rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_marginRight="2dp"/>
 
 </LinearLayout>

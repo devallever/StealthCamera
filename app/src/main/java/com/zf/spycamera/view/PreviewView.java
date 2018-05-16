@@ -96,7 +96,7 @@ public class PreviewView extends FrameLayout{
             // 不显示预览框，则用图片把预览框覆盖
             ImageView imageView = new ImageView(mContext);
             imageView
-                    .setBackgroundResource(R.drawable.silent_btn_shutter_default);
+                    .setBackgroundResource(R.drawable.ic_take_photo);
             this.addView(imageView, params);
         }
     }
