@@ -1,13 +1,21 @@
 package com.zf.spycamera.activity;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.zf.spycamera.RecyclerItemClickListener;
@@ -23,6 +31,7 @@ import java.util.List;
  */
 
 public class PictureActivity extends AppCompatActivity {
+    private static final String TAG = "PictureActivity";
     private List<String> mFilePathList;
     private PicAdapter mAdapter;
     private RecyclerView mRv;
@@ -51,11 +60,22 @@ public class PictureActivity extends AppCompatActivity {
         mRv.addOnItemTouchListener(new RecyclerItemClickListener(this, mRv, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent albumIntent = new Intent(Intent.ACTION_VIEW);
-                File file;
-                file = new File(mFilePathList.get(position));
-                albumIntent.setDataAndType(Uri.fromFile(file), "image/*");
-                startActivity(albumIntent);
+
+                ResolveInfo info = getPkg();
+                if (info != null){
+                    Intent intent=new Intent();
+                    intent.setPackage(info.activityInfo.applicationInfo.packageName);
+                    File file=new File(mFilePathList.get(position));
+                    intent.setDataAndType(Uri.fromFile(file),"image/*");
+                    intent.setAction(Intent.ACTION_VIEW);
+                    startActivity(intent);
+                }else {
+                    Intent albumIntent = new Intent(Intent.ACTION_VIEW);
+                    File file;
+                    file = new File(mFilePathList.get(position));
+                    albumIntent.setDataAndType(Uri.fromFile(file), "image/*");
+                    startActivity(albumIntent);
+                }
             }
 
             @Override
@@ -63,5 +83,34 @@ public class PictureActivity extends AppCompatActivity {
 
             }
         }));
+    }
+
+    private ResolveInfo getPkg(){
+        ActivityManager mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        final PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> apps = packageManager.queryIntentActivities(mainIntent, 0);
+        String pkg = "";
+        ResolveInfo info = null;
+        for (int i = 0; i < apps.size(); i++) {
+            info = apps.get(i);
+//            Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
+//                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
+//            String str = info.activityInfo.loadLabel(packageManager) + " pkgName "
+//                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name;
+//            Log.d(TAG, "printPKGName: " + str);
+
+            pkg = info.activityInfo.applicationInfo.packageName;
+            if (pkg.contains("photo") || pkg.contains("gallery")){
+                Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
+                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
+                String str = info.activityInfo.loadLabel(packageManager) + " pkgName "
+                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name;
+                Log.d(TAG, "printPKGName: " + str);
+                break;
+            }
+        }
+        return info;
     }
 }
