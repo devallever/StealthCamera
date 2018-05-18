@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Process;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -165,7 +166,11 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
 
     @Override
     public void onClickExit() {
-        finish();
+        if (FloatWindowService.mService != null) {
+            Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
+            stopService(floatIntent);
+        }
+        Process.killProcess(Process.myPid());
     }
 
     @Override
