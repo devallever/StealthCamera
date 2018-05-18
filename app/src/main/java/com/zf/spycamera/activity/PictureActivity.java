@@ -1,20 +1,16 @@
 package com.zf.spycamera.activity;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -35,6 +31,7 @@ public class PictureActivity extends AppCompatActivity {
     private List<String> mFilePathList;
     private PicAdapter mAdapter;
     private RecyclerView mRv;
+    private String mPkg = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,19 +49,18 @@ public class PictureActivity extends AppCompatActivity {
     private void initView(){
         mRv = findViewById(R.id.id_picture_rv);
         mAdapter = new PicAdapter(this, mFilePathList);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRv.setLayoutManager(new GridLayoutManager(this,3));
         mRv.setAdapter(mAdapter);
 
         mRv.addOnItemTouchListener(new RecyclerItemClickListener(this, mRv, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
-                ResolveInfo info = getPkg();
-                if (info != null){
+                if (TextUtils.isEmpty(mPkg)){
+                    mPkg = getPkg();
+                }
+                if (!TextUtils.isEmpty(mPkg)){
                     Intent intent=new Intent();
-                    intent.setPackage(info.activityInfo.applicationInfo.packageName);
+                    intent.setPackage(mPkg);
                     File file=new File(mFilePathList.get(position));
                     intent.setDataAndType(Uri.fromFile(file),"image/*");
                     intent.setAction(Intent.ACTION_VIEW);
@@ -85,8 +81,10 @@ public class PictureActivity extends AppCompatActivity {
         }));
     }
 
-    private ResolveInfo getPkg(){
-        ActivityManager mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+    /**
+     * 获取带有Launcher应用包名
+     * */
+    private String getPkg(){
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         final PackageManager packageManager = getPackageManager();
@@ -95,22 +93,37 @@ public class PictureActivity extends AppCompatActivity {
         ResolveInfo info = null;
         for (int i = 0; i < apps.size(); i++) {
             info = apps.get(i);
-//            Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
-//                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
-//            String str = info.activityInfo.loadLabel(packageManager) + " pkgName "
-//                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name;
-//            Log.d(TAG, "printPKGName: " + str);
+            Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
+                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
 
             pkg = info.activityInfo.applicationInfo.packageName;
-            if (pkg.contains("photo") || pkg.contains("gallery")){
-                Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
-                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
-                String str = info.activityInfo.loadLabel(packageManager) + " pkgName "
-                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name;
-                Log.d(TAG, "printPKGName: " + str);
+            if (pkg.contains("gallery") || pkg.contains("photo")){
+//                Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
+//                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
                 break;
             }
         }
-        return info;
+        return pkg;
+    }
+
+    /**
+     * 获取系统级别的应用包名
+     * */
+    private String getSystemGalleryPkg(){
+        String pkg = "";
+        PackageManager packageManager = getPackageManager();
+        List<ApplicationInfo> applicationInfoList = packageManager.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        for (ApplicationInfo app: applicationInfoList){
+            if ((app.flags & ApplicationInfo.FLAG_SYSTEM) != 0){
+                //系统级应用
+                pkg = app.packageName;
+                Log.d("TAG", "pkg = " + pkg );
+                if (pkg.contains("gallery") || pkg.contains("photo")){
+                    Log.d("TAG", "has gallery or photo\n");
+                    break;
+                }
+            }
+        }
+        return pkg;
     }
 }
