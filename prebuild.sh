@@ -2,7 +2,7 @@ currentDir=$PWD
 echo "更新代码ads_lib..."
 cd ..
 if [ ! -d "ads_lib" ]; then  
-git clone git@git.izhifei.com:maozhi/ads_lib.git
+git clone git@git.radishmobile.com:maozhi/ads_lib.git
 fi  
 cd ads_lib
 git pull origin master
