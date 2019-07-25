@@ -8,10 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
-import com.allever.lib.common.util.DLog
 import com.allever.lib.common.util.ToastUtils
-import com.allever.lib.permission.PermissionCompat
+import com.allever.lib.common.util.toast
 import com.allever.lib.permission.PermissionListener
 import com.allever.lib.permission.PermissionManager
 
@@ -39,16 +37,6 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         requestPermission()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        DLog.d("onResume")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        DLog.d("onStop")
     }
 
     private fun initData() {}
@@ -126,6 +114,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun requestPermission(grantedTask: Runnable? = null) {
+        if (PermissionManager.hasPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            grantedTask?.run()
+            return
+        }
         PermissionManager.request(object : PermissionListener {
             override fun onGranted(grantedList: MutableList<String>) {
                 grantedTask?.run()
@@ -166,8 +158,7 @@ class MainActivity : AppCompatActivity() {
         val currentTime = System.currentTimeMillis()
         if (mPrevClickBackTime == -1L || currentTime - mPrevClickBackTime > 3000) {
             mPrevClickBackTime = currentTime
-            Toast.makeText(this, "Press again to exit",
-                    Toast.LENGTH_LONG).show()
+            toast("Press again to exit")
             return
         }
         super.onBackPressed()
