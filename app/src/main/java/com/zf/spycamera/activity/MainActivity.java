@@ -3,33 +3,20 @@ package com.zf.spycamera.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Process;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.mob.main.MobService;
 import com.mob.permission.FloatWindowManager;
 import com.mob.permission.rom.RomUtils;
 import com.mob.permission.rom.VivoUtils;
-import com.radishmobile.rate.ExitDialog;
-import com.radishmobile.rate.IExitListener;
-import com.radishmobile.rate.RateUtils;
-import com.zf.spycamera.AdFactory;
-import com.zf.spycamera.Controller;
 import com.zf.spycamera.FloatWindowService;
 import com.zf.spycamera.R;
 import com.zf.spycamera.utils.CameraUtil;
-import com.zf.spycamera.utils.FileUtil;
 
-import java.io.File;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements IExitListener {
+public class MainActivity extends AppCompatActivity{
 
     private ImageView mIvCam;
     private ImageView mIvSetting;
@@ -40,10 +27,6 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Controller.getIns().init(this,new AdFactory());
-//        Controller.getIns().loadInterAd(this);
-//        Controller.getIns().loadBannerAd(this);
 
         initData();
         initView();
@@ -144,42 +127,16 @@ public class MainActivity extends AppCompatActivity implements IExitListener {
         builder.show();
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobService.getIns().onPause(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobService.getIns().onResume(this);
-    }
-
+    private long mPrevClickBackTime = -1;
     @Override
     public void onBackPressed() {
-        ExitDialog exitDialog = new ExitDialog(this);
-        exitDialog.setExitListener(this);
-        exitDialog.show();
-    }
-
-    @Override
-    public void onClickExit() {
-        if (FloatWindowService.mService != null) {
-            Intent floatIntent = new Intent(MainActivity.this, FloatWindowService.class);
-            stopService(floatIntent);
+        long currentTime = System.currentTimeMillis();
+        if (mPrevClickBackTime == -1 || currentTime - mPrevClickBackTime > 3000) {
+            mPrevClickBackTime = currentTime;
+            Toast.makeText(this, "Press again to exit",
+                    Toast.LENGTH_LONG).show();
+            return;
         }
-        Process.killProcess(Process.myPid());
-    }
-
-    @Override
-    public void onClickRate() {
-        RateUtils.openAppInPlay(this, getPackageName());
-    }
-
-    @Override
-    public void onCancel() {
-
+        super.onBackPressed();
     }
 }

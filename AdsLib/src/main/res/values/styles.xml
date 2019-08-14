@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FullScreenTranslucent" parent="@android:style/Theme.Translucent">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="circle_progress_load">
+        <item name="android:indeterminateDrawable">@drawable/progress_circle_shape</item>
+        <item name="android:minWidth">80dp</item>
+        <item name="android:minHeight">80dp</item>
+        <item name="android:maxWidth">100dp</item>
+        <item name="android:maxHeight">100dp</item>
+    </style>
+</resources>
