@@ -1,4 +1,4 @@
-include ':app', ':AdsLib'
+include ':app'
 //project(':rate').projectDir = new File(settingsDir, '../ads_lib/rate')
 //project(':AdsLib').projectDir = new File(settingsDir, '../ads_lib/AdsLib')
 //project(':facebook').projectDir = new File(settingsDir, '../ads_lib/facebook')
