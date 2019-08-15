@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Facishare Technology Co., Ltd. All Rights Reserved.
  */
-package com.allever.stealthcamera.permission;
+package com.allever.stealthcamera.function.permission;
 
 import android.content.Context;
 import android.graphics.Point;

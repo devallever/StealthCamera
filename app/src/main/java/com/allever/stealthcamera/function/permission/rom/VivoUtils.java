@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.permission.rom;
+package com.allever.stealthcamera.function.permission.rom;
 
 import android.content.ComponentName;
 import android.content.Context;

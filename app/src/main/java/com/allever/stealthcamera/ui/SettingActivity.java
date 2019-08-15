@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.activity;
+package com.allever.stealthcamera.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

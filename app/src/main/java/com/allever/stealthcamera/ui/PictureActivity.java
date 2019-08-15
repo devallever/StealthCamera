@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.activity;
+package com.allever.stealthcamera.ui;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.allever.stealthcamera.RecyclerItemClickListener;
-import com.allever.stealthcamera.adapter.PicAdapter;
+import com.allever.stealthcamera.ui.adapter.PicAdapter;
 import com.allever.stealthcamera.R;
 import com.allever.stealthcamera.utils.FileUtil;
 

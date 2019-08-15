@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Facishare Technology Co., Ltd. All Rights Reserved.
  */
-package com.allever.stealthcamera.permission;
+package com.allever.stealthcamera.function.permission;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,12 +19,12 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.allever.stealthcamera.R;
-import com.allever.stealthcamera.permission.rom.HuaweiUtils;
-import com.allever.stealthcamera.permission.rom.MeizuUtils;
-import com.allever.stealthcamera.permission.rom.MiuiUtils;
-import com.allever.stealthcamera.permission.rom.OppoUtils;
-import com.allever.stealthcamera.permission.rom.QikuUtils;
-import com.allever.stealthcamera.permission.rom.RomUtils;
+import com.allever.stealthcamera.function.permission.rom.HuaweiUtils;
+import com.allever.stealthcamera.function.permission.rom.MeizuUtils;
+import com.allever.stealthcamera.function.permission.rom.MiuiUtils;
+import com.allever.stealthcamera.function.permission.rom.OppoUtils;
+import com.allever.stealthcamera.function.permission.rom.QikuUtils;
+import com.allever.stealthcamera.function.permission.rom.RomUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.view;
+package com.allever.stealthcamera.ui.view;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.activity;
+package com.allever.stealthcamera.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 import com.allever.stealthcamera.FloatWindowService;
 import com.allever.stealthcamera.R;
-import com.allever.stealthcamera.permission.FloatWindowManager;
-import com.allever.stealthcamera.permission.rom.RomUtils;
-import com.allever.stealthcamera.permission.rom.VivoUtils;
+import com.allever.stealthcamera.function.permission.FloatWindowManager;
+import com.allever.stealthcamera.function.permission.rom.RomUtils;
+import com.allever.stealthcamera.function.permission.rom.VivoUtils;
 import com.allever.stealthcamera.utils.CameraUtil;
 
 public class MainActivity extends AppCompatActivity{

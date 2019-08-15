@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.activity;
+package com.allever.stealthcamera.ui;
 
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.allever.stealthcamera.CameraManager;
 import com.allever.stealthcamera.R;
-import com.allever.stealthcamera.view.CameraSurfaceView;
+import com.allever.stealthcamera.ui.view.CameraSurfaceView;
 
 /**
  * Created by Allever on 18/5/12.

@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.fragment;
+package com.allever.stealthcamera.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -6,7 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.allever.stealthcamera.view.PreviewView;
+import com.allever.stealthcamera.ui.view.PreviewView;
 
 /**
  * Created by Allever on 18/5/11.

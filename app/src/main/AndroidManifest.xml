@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.allever.stealthcamera.activity.MainActivity"
+        <activity android:name="com.allever.stealthcamera.ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.allever.stealthcamera.activity.SettingActivity"
+        <activity android:name="com.allever.stealthcamera.ui.SettingActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.stealthcamera.activity.PictureActivity"
+        <activity android:name="com.allever.stealthcamera.ui.PictureActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.stealthcamera.activity.CameraActivity"
+        <activity android:name="com.allever.stealthcamera.ui.CameraActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.stealthcamera.activity.GalleryActivity"
+        <activity android:name="com.allever.stealthcamera.ui.GalleryActivity"
             android:screenOrientation="portrait"/>
         <service android:name="com.allever.stealthcamera.FloatWindowService"></service>
 

@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.adapter;
+package com.allever.stealthcamera.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

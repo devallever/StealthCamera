@@ -1,4 +1,4 @@
-package com.allever.stealthcamera.activity;
+package com.allever.stealthcamera.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.allever.stealthcamera.R;
-import com.allever.stealthcamera.adapter.GalleryPagerAdapter;
-import com.allever.stealthcamera.fragment.PicFragment;
+import com.allever.stealthcamera.ui.adapter.GalleryPagerAdapter;
 import com.allever.stealthcamera.utils.FileUtil;
-import com.allever.stealthcamera.view.ZoomOutPageTransformer;
+import com.allever.stealthcamera.ui.view.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;

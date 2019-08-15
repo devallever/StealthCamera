@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.allever.stealthcamera.activity.MainActivity">
+    tools:context="com.allever.stealthcamera.ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/id_main_ll_menu_container"
