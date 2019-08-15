@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.allever.spycamera">
+    package="com.allever.stealthcamera">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.allever.spycamera.activity.MainActivity"
+        <activity android:name="com.allever.stealthcamera.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.allever.spycamera.activity.SettingActivity"
+        <activity android:name="com.allever.stealthcamera.activity.SettingActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.spycamera.activity.PictureActivity"
+        <activity android:name="com.allever.stealthcamera.activity.PictureActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.spycamera.activity.CameraActivity"
+        <activity android:name="com.allever.stealthcamera.activity.CameraActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.allever.spycamera.activity.GalleryActivity"
+        <activity android:name="com.allever.stealthcamera.activity.GalleryActivity"
             android:screenOrientation="portrait"/>
-        <service android:name="com.allever.spycamera.FloatWindowService"></service>
+        <service android:name="com.allever.stealthcamera.FloatWindowService"></service>
 
 
         <meta-data
