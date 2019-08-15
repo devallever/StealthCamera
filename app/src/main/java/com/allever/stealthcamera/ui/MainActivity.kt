@@ -1,5 +1,6 @@
 package com.allever.stealthcamera.ui
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,6 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.allever.lib.common.util.ToastUtils
+import com.allever.lib.permission.PermissionListener
+import com.allever.lib.permission.PermissionManager
 
 import com.allever.stealthcamera.FloatWindowService
 import com.allever.stealthcamera.R
@@ -31,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         initData()
         initView()
+
+        requestPermission()
     }
 
     private fun initData() {}
@@ -47,24 +53,25 @@ class MainActivity : AppCompatActivity() {
             mIvCam!!.setImageResource(R.drawable.ic_camera_on)
         }
 
-        mIvCam!!.setOnClickListener(View.OnClickListener {
-            if (!CameraUtil.checkCameraHardware(this@MainActivity)) {
-                return@OnClickListener
-            }
-
-            if (FloatWindowManager.applyOrShowFloatWindow(this@MainActivity)) {
-                val floatIntent = Intent(this@MainActivity, FloatWindowService::class.java)
-                if (FloatWindowService.mService == null) {
-                    startService(floatIntent)
-                    mIvCam!!.setImageResource(R.drawable.ic_camera_on)
-                } else {
-                    stopService(floatIntent)
-                    mIvCam!!.setImageResource(R.drawable.ic_camera_off)
+        mIvCam?.setOnClickListener {
+            requestPermission(Runnable {
+                if (!CameraUtil.checkCameraHardware(this@MainActivity)) {
+                    return@Runnable
                 }
-            } else {
-                showSettingDialog()
-            }
-        })
+                if (FloatWindowManager.applyOrShowFloatWindow(this@MainActivity)) {
+                    val floatIntent = Intent(this@MainActivity, FloatWindowService::class.java)
+                    if (FloatWindowService.mService == null) {
+                        startService(floatIntent)
+                        mIvCam?.setImageResource(R.drawable.ic_camera_on)
+                    } else {
+                        stopService(floatIntent)
+                        mIvCam?.setImageResource(R.drawable.ic_camera_off)
+                    }
+                } else {
+                    showSettingDialog()
+                }
+            })
+        }
 
         mIvSetting!!.setOnClickListener {
             //设置界面
@@ -72,39 +79,63 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        mIvPic!!.setOnClickListener {
-            //相册
-            val intent = Intent(this@MainActivity, PictureActivity::class.java)
-            startActivity(intent)
-
-            //                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-            //                startActivity(intent);
+        mIvPic?.setOnClickListener {
+            requestPermission(Runnable {
+                //相册
+                val intent = Intent(this@MainActivity, PictureActivity::class.java)
+                startActivity(intent)
+            })
         }
 
-        mIvGenCam!!.setOnClickListener(View.OnClickListener {
+        mIvGenCam?.setOnClickListener(View.OnClickListener {
             if (!CameraUtil.checkCameraHardware(this@MainActivity)) {
                 return@OnClickListener
             }
-            val intent = Intent(this@MainActivity, CameraActivity::class.java)
-            startActivity(intent)
+            requestPermission(Runnable {
+                val intent = Intent(this@MainActivity, CameraActivity::class.java)
+                startActivity(intent)
+            })
         })
 
 
     }
 
-    private fun showSettingDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.string_dialog_title)
-        builder.setMessage(R.string.string_dialog_message)
-        builder.setPositiveButton(R.string.string_dialog_setting_button) { dialogInterface, i ->
-            if (RomUtils.checkIsVivoRom()) {
-                VivoUtils.applyOppoPermission(this@MainActivity)
-            } else {
-                FloatWindowManager.applyPermission(this@MainActivity)
+
+    private fun requestPermission(grantedTask: Runnable? = null) {
+        PermissionManager.request(object : PermissionListener {
+            override fun onGranted(grantedList: MutableList<String>) {
+                grantedTask?.run()
             }
-        }
-        builder.setNegativeButton(R.string.string_dialog_cancel_button) { dialogInterface, i -> }
-        builder.show()
+
+            override fun onDenied(deniedList: MutableList<String>) {
+                super.onDenied(deniedList)
+                ToastUtils.show("拒绝权限无法使用")
+            }
+
+            override fun alwaysDenied(deniedList: MutableList<String>) {
+                super.alwaysDenied(deniedList)
+                PermissionManager.jumpPermissionSetting(this@MainActivity, 0,
+                        DialogInterface.OnClickListener { dialog, which ->
+                            dialog.dismiss()
+                        })
+            }
+
+        }, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+
+    private fun showSettingDialog() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.string_dialog_title)
+                .setMessage(R.string.string_dialog_message)
+                .setPositiveButton(R.string.string_dialog_setting_button) { dialogInterface, i ->
+                    if (RomUtils.checkIsVivoRom()) {
+                        VivoUtils.applyOppoPermission(this@MainActivity)
+                    } else {
+                        FloatWindowManager.applyPermission(this@MainActivity)
+                    }
+                }
+                .setNegativeButton(R.string.string_dialog_cancel_button) { dialogInterface, i -> }
+                .show()
     }
 
     override fun onBackPressed() {
