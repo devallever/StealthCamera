@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">秘密相机</string>
+    <string name="app_name">隐身相机</string>
 
     <string name="string_dialog_title">提示</string>
     <string name="string_dialog_message">您的手机没有授予悬浮窗权限，请开启后再试</string>
