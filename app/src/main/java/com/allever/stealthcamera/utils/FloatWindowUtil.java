@@ -44,8 +44,8 @@ public class FloatWindowUtil {
                 floatWindowViewParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                         | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 floatWindowViewParams.gravity = Gravity.LEFT | Gravity.TOP;
-                floatWindowViewParams.width = PreviewView.viewWidth;
-                floatWindowViewParams.height = PreviewView.viewHeight;
+                floatWindowViewParams.width = PreviewView.Companion.getViewWidth();
+                floatWindowViewParams.height = PreviewView.Companion.getViewHeight();
                 floatWindowViewParams.x = screenWidth;
                 floatWindowViewParams.y = 0;
             }

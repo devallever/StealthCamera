@@ -59,12 +59,14 @@ object CameraManager {
             isCapturing = true
             mCamera?.takePicture(null, null, Camera.PictureCallback { data, camera ->
                 Log.d(TAG, "onPictureTaken: ")
-                var b: Bitmap? = null
+                val b: Bitmap?
                 if (null != data) {
                     // data是字节数据，将其解析成位图
                     b = BitmapFactory.decodeByteArray(data, 0, data.size)
                     val rotaBitmap = ImageUitl.getRotateBitmap(b, 90.0f)
-                    FileUtil.saveBitmap(rotaBitmap)
+                    if (rotaBitmap != null) {
+                        FileUtil.saveBitmap(rotaBitmap)
+                    }
                 }
                 // 一般Camera在pictureCallBack后会暂停PreView，发现三星手机在底层封装能自动重启PreView功能
                 mCamera?.startPreview()
@@ -101,10 +103,10 @@ object CameraManager {
         // 设置PreviewSize和PictureSize
         val pictureSize = CameraUtil.getPropPictureSize(mParams,
                 maxHeight)
-        mParams?.setPictureSize(pictureSize.width, pictureSize.height)
+        mParams?.setPictureSize(pictureSize?.width!!, pictureSize.height)
         val previewSize = CameraUtil.getPropPreviewSize(mParams,
                 maxHeight)
-        mParams?.setPreviewSize(previewSize.width, previewSize.height)
+        mParams?.setPreviewSize(previewSize?.width!!, previewSize.height)
 
         // 旋转，把预览垂直
         mCamera?.setDisplayOrientation(90)
