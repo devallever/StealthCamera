@@ -5,13 +5,16 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import com.allever.stealthcamera.BuildConfig
 
 import com.allever.stealthcamera.RecyclerItemClickListener
 import com.allever.stealthcamera.ui.adapter.PicAdapter
@@ -33,9 +36,7 @@ class PictureActivity : AppCompatActivity() {
     /**
      * 获取带有Launcher应用包名
      */
-    private//                Log.e("TAG", info.activityInfo.loadLabel(packageManager) + " pkgName "
-    //                    + info.activityInfo.applicationInfo.packageName + " className " + info.activityInfo.name);
-    val pkg: String
+    private val pkg: String
         get() {
             val mainIntent = Intent(Intent.ACTION_MAIN, null)
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -101,20 +102,27 @@ class PictureActivity : AppCompatActivity() {
                 if (TextUtils.isEmpty(mPkg)) {
                     mPkg = pkg
                 }
+                val albumIntent = Intent(Intent.ACTION_VIEW)
                 if (!TextUtils.isEmpty(mPkg)) {
-                    val intent = Intent()
                     intent.setPackage(mPkg)
-                    val file = File(mFilePathList!![position])
-                    intent.setDataAndType(Uri.fromFile(file), "image/*")
-                    intent.action = Intent.ACTION_VIEW
-                    startActivity(intent)
-                } else {
-                    val albumIntent = Intent(Intent.ACTION_VIEW)
-                    val file: File
-                    file = File(mFilePathList!![position])
-                    albumIntent.setDataAndType(Uri.fromFile(file), "image/*")
-                    startActivity(albumIntent)
                 }
+
+                val file = File(mFilePathList!![position])
+                val fileUri: Uri
+                fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    //解决调用相册不显示图片的问题
+                    albumIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    FileProvider.getUriForFile(
+                            this@PictureActivity,
+                            BuildConfig.APPLICATION_ID + ".fileprovider",
+                            file
+                    )
+                } else {
+                    Uri.fromFile(file)
+                }
+
+                albumIntent.setDataAndType(Uri.parse(fileUri.toString()), "image/*")
+                startActivity(albumIntent)
             }
 
             override fun onItemLongClick(view: View?, position: Int) {
