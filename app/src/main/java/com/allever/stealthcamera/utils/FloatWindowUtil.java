@@ -2,6 +2,7 @@ package com.allever.stealthcamera.utils;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,7 +40,13 @@ public class FloatWindowUtil {
             previewView = new PreviewView(context);
             if (floatWindowViewParams == null) {
                 floatWindowViewParams = new WindowManager.LayoutParams();
-                floatWindowViewParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+//                floatWindowViewParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                //解决8.0 悬浮窗崩溃的问题
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    floatWindowViewParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                } else {
+                    floatWindowViewParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                }
                 floatWindowViewParams.format = PixelFormat.RGBA_8888;
                 floatWindowViewParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                         | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
