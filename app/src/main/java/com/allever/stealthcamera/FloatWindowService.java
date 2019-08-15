@@ -32,7 +32,7 @@ public class FloatWindowService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CameraManager.getIns().releaseCamera();
+        CameraManager.INSTANCE.releaseCamera();
 
         //关闭浮窗
         FloatWindowUtil.removeFloatWindow(getApplicationContext());
@@ -41,7 +41,7 @@ public class FloatWindowService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        CameraManager.getIns().openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+        CameraManager.INSTANCE.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
         //没有悬浮窗显示，则创建悬浮窗。
         if (!FloatWindowUtil.isFloatWindowShowing()) {
             mHandler.post(new Runnable() {

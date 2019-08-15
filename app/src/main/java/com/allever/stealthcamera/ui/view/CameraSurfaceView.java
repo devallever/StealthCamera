@@ -42,7 +42,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         Point p = DisplayUtil.getScreenMetrics(mContext);
         float height = p.y;
         int maxHeight = (int) (height * 3 / 5);
-        CameraManager.getIns().startPreview(mSurfaceHolder,maxHeight);
+        CameraManager.INSTANCE.startPreview(mSurfaceHolder,maxHeight);
     }
 
     @Override
@@ -52,6 +52,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        CameraManager.getIns().stopCamera();
+        CameraManager.INSTANCE.stopCamera();
     }
 }

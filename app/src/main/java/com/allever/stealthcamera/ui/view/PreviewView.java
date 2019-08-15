@@ -130,7 +130,7 @@ public class PreviewView extends FrameLayout{
                 // 如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen和yInScreen相等，则视为触发了单击事件。
                 if (Math.abs(xDownInScreen - xInScreen) <= 20
                         && Math.abs(yDownInScreen - yInScreen) <= 20) {
-                    CameraManager.getIns().takePicture();
+                    CameraManager.INSTANCE.takePicture();
 
                     Toast.makeText(mContext,"Done",
                             Toast.LENGTH_SHORT).show();

@@ -37,7 +37,7 @@ public class CameraActivity extends AppCompatActivity {
         mIvTake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CameraManager.getIns().takePicture();
+                CameraManager.INSTANCE.takePicture();
                 Toast.makeText(CameraActivity.this, "Done", Toast.LENGTH_SHORT).show();
             }
         });
@@ -53,7 +53,7 @@ public class CameraActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d(TAG, "onResume: ");
         super.onResume();
-        CameraManager.getIns().openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+        CameraManager.INSTANCE.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
         cameraSurfaceView = new CameraSurfaceView(this);
         mFl.addView(cameraSurfaceView,params);
     }
@@ -63,7 +63,7 @@ public class CameraActivity extends AppCompatActivity {
         Log.d(TAG, "onStop: ");
         super.onStop();
         mFl.removeView(cameraSurfaceView);
-        CameraManager.getIns().releaseCamera();
+        CameraManager.INSTANCE.releaseCamera();
         cameraSurfaceView = null;
     }
 }
