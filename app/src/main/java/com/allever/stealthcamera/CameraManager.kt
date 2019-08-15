@@ -40,28 +40,24 @@ object CameraManager {
     }
 
     fun stopCamera() {
-        if (mCamera != null) {
-            mCamera!!.setPreviewCallback(null)
-            mCamera!!.stopPreview()
-            isPreviewing = false
-        }
+        mCamera?.setPreviewCallback(null)
+        mCamera?.stopPreview()
+        isPreviewing = false
     }
 
     fun releaseCamera() {
-        if (null != mCamera) {
-            mCamera!!.setPreviewCallback(null)
-            mCamera!!.stopPreview()
-            isPreviewing = false
-            mCamera!!.release()
-            mCamera = null
-        }
+        mCamera?.setPreviewCallback(null)
+        mCamera?.stopPreview()
+        isPreviewing = false
+        mCamera?.release()
+        mCamera = null
     }
 
 
     fun takePicture() {
-        if (isPreviewing && mCamera != null && isCapturing == false) {
+        if (isPreviewing && mCamera != null && !isCapturing) {
             isCapturing = true
-            mCamera!!.takePicture(null, null, Camera.PictureCallback { data, camera ->
+            mCamera?.takePicture(null, null, Camera.PictureCallback { data, camera ->
                 Log.d(TAG, "onPictureTaken: ")
                 var b: Bitmap? = null
                 if (null != data) {
@@ -71,7 +67,7 @@ object CameraManager {
                     FileUtil.saveBitmap(rotaBitmap)
                 }
                 // 一般Camera在pictureCallBack后会暂停PreView，发现三星手机在底层封装能自动重启PreView功能
-                mCamera!!.startPreview()
+                mCamera?.startPreview()
                 isPreviewing = true
                 isCapturing = false
             })
@@ -88,63 +84,65 @@ object CameraManager {
         Log.d(TAG,
                 "maxHeight = $maxHeight")
         if (isPreviewing) {
-            mCamera!!.setPreviewCallback(null)
-            mCamera!!.stopPreview()
+            mCamera?.setPreviewCallback(null)
+            mCamera?.stopPreview()
             // return;
         }
-        if (mCamera != null) {
-            isCapturing = false
 
-            mParams = mCamera!!.parameters
-            mParams!!.pictureFormat = PixelFormat.JPEG// 设置拍照后存储的图片格式
+        isCapturing = false
 
-            // 打印camera支持的图片大小和预览大小
-            CameraUtil.printSupportPictureSize(mParams)
-            CameraUtil.printSupportPreviewSize(mParams)
+        mParams = mCamera?.parameters
+        mParams?.pictureFormat = PixelFormat.JPEG// 设置拍照后存储的图片格式
 
-            // 设置PreviewSize和PictureSize
-            val pictureSize = CameraUtil.getPropPictureSize(mParams,
-                    maxHeight)
-            mParams!!.setPictureSize(pictureSize.width, pictureSize.height)
-            val previewSize = CameraUtil.getPropPreviewSize(mParams,
-                    maxHeight)
-            mParams!!.setPreviewSize(previewSize.width, previewSize.height)
+        // 打印camera支持的图片大小和预览大小
+        CameraUtil.printSupportPictureSize(mParams)
+        CameraUtil.printSupportPreviewSize(mParams)
 
-            // 旋转，把预览垂直
-            mCamera!!.setDisplayOrientation(90)
+        // 设置PreviewSize和PictureSize
+        val pictureSize = CameraUtil.getPropPictureSize(mParams,
+                maxHeight)
+        mParams?.setPictureSize(pictureSize.width, pictureSize.height)
+        val previewSize = CameraUtil.getPropPreviewSize(mParams,
+                maxHeight)
+        mParams?.setPreviewSize(previewSize.width, previewSize.height)
 
-            // 打印支持的聚集模式
-            CameraUtil.printSupportFocusMode(mParams)
+        // 旋转，把预览垂直
+        mCamera?.setDisplayOrientation(90)
 
-            val focusModes = mParams!!.supportedFocusModes
+        // 打印支持的聚集模式
+        CameraUtil.printSupportFocusMode(mParams)
+
+        val focusModes = mParams?.supportedFocusModes
+        if (focusModes?.isNotEmpty() == true) {
             for (mode in focusModes) {
                 Log.d(TAG, "startPreview: mode = $mode")
             }
-            if (focusModes.contains("continuous-video")) {
-                mParams!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
-            }
-            mCamera!!.parameters = mParams
-
-            try {
-                mCamera!!.setPreviewDisplay(holder)
-                mCamera!!.startPreview()// 开启预览
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            isPreviewing = true
-
-            // 重新get一次
-            mParams = mCamera!!.parameters
-            Log.d(TAG,
-                    "最终设置:PreviewSize--With = "
-                            + mParams!!.previewSize.width + ", Height = "
-                            + mParams!!.previewSize.height)
-            Log.d(TAG,
-                    "最终设置:PictureSize--With = "
-                            + mParams!!.pictureSize.width + ", Height = "
-                            + mParams!!.pictureSize.height)
         }
+
+        if (focusModes?.contains("continuous-video") == true) {
+            mParams?.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
+        }
+        mCamera?.parameters = mParams
+
+        try {
+            mCamera?.setPreviewDisplay(holder)
+            mCamera?.startPreview()// 开启预览
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        isPreviewing = true
+
+        // 重新get一次
+        mParams = mCamera?.parameters
+        Log.d(TAG,
+                "最终设置:PreviewSize--With = "
+                        + mParams?.previewSize?.width + ", Height = "
+                        + mParams?.previewSize?.height)
+        Log.d(TAG,
+                "最终设置:PictureSize--With = "
+                        + mParams?.pictureSize?.width + ", Height = "
+                        + mParams?.pictureSize?.height)
     }
 
 
@@ -158,8 +156,7 @@ object CameraManager {
         // 开始遍历摄像头，得到camera info
         val cameraCount = Camera.getNumberOfCameras()
         Log.d(TAG, "getCameraInfoId: cameraCount = $cameraCount")
-        var cameraId: Int
-        cameraId = 0
+        var cameraId = 0
         while (cameraId < cameraCount) {
             Camera.getCameraInfo(cameraId, cameraInfo)
             if (cameraInfo.facing == tagInfo) {
