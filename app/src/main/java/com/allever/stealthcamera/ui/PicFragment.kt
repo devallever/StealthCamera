@@ -24,10 +24,11 @@ class PicFragment : Fragment {
         mImgPath = imgPath
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = LayoutInflater.from(activity).inflate(R.layout.fragment_pic, container, false)
         val iv = view.findViewById<ImageView>(R.id.id_fg_pic_iv)
-        Glide.with(activity).load(mImgPath).into(iv)
+        Glide.with(activity!!).load(mImgPath).into(iv)
         return view
     }
+
 }

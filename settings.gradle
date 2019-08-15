@@ -1,5 +1,6 @@
 include ':app'
-//project(':rate').projectDir = new File(settingsDir, '../ads_lib/rate')
-//project(':AdsLib').projectDir = new File(settingsDir, '../ads_lib/AdsLib')
-//project(':facebook').projectDir = new File(settingsDir, '../ads_lib/facebook')
-//project(':admob_lite').projectDir = new File(settingsDir, '../ads_lib/admob_lite')
+
+include ':permission'
+project(':permission').projectDir = new File(settingsDir, '../AndroidDependencyLib/permission')
+include ':common'
+project(':common').projectDir = new File(settingsDir, '../AndroidDependencyLib/common')
