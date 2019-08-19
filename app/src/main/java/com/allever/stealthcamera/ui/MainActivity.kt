@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.allever.lib.common.util.DLog
 import com.allever.lib.common.util.ToastUtils
+import com.allever.lib.permission.PermissionCompat
 import com.allever.lib.permission.PermissionListener
 import com.allever.lib.permission.PermissionManager
 
@@ -37,6 +39,16 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         requestPermission()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        DLog.d("onResume")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        DLog.d("onStop")
     }
 
     private fun initData() {}
@@ -73,18 +85,21 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        mIvSetting!!.setOnClickListener {
+        mIvSetting?.setOnClickListener {
             //设置界面
             val intent = Intent(this@MainActivity, SettingActivity::class.java)
             startActivity(intent)
         }
 
         mIvPic?.setOnClickListener {
-            requestPermission(Runnable {
+            if (PermissionManager.hasPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 //相册
                 val intent = Intent(this@MainActivity, PictureActivity::class.java)
                 startActivity(intent)
-            })
+
+            } else {
+                requestPermission()
+            }
         }
 
         mIvGenCam?.setOnClickListener(View.OnClickListener {
