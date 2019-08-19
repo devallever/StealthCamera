@@ -87,7 +87,7 @@ object MiuiUtils {
             goToMiuiPermissionActivity_V6(context)
         } else if (versionCode == 7) {
             goToMiuiPermissionActivity_V7(context)
-        } else if (versionCode == 8) {
+        } else if (versionCode == 8 || versionCode == 9 || versionCode == 10) {
             goToMiuiPermissionActivity_V8(context)
         } else {
             Log.e(TAG, "this is a special MIUI rom version, its version code $versionCode")
