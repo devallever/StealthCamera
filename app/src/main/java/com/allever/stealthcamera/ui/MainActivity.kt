@@ -106,10 +106,19 @@ class MainActivity : AppCompatActivity() {
             if (!CameraUtil.checkCameraHardware(this@MainActivity)) {
                 return@OnClickListener
             }
-            requestPermission(Runnable {
+            if (PermissionManager.hasPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (FloatWindowService.mService != null) {
+                    //停止预览
+                    val floatIntent = Intent(this@MainActivity, FloatWindowService::class.java)
+                    stopService(floatIntent)
+                    mIvCam?.setImageResource(R.drawable.ic_camera_off)
+                }
+
                 val intent = Intent(this@MainActivity, CameraActivity::class.java)
                 startActivity(intent)
-            })
+            } else {
+                requestPermission()
+            }
         })
 
 
