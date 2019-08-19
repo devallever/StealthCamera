@@ -12,6 +12,10 @@ import com.allever.stealthcamera.utils.FileUtil
 import com.allever.stealthcamera.utils.ImageUitl
 
 import java.io.IOException
+import android.content.Context
+import android.view.Surface
+import android.view.WindowManager
+import com.allever.lib.common.app.App
 
 
 /**
@@ -63,7 +67,9 @@ object CameraManager {
                 if (null != data) {
                     // data是字节数据，将其解析成位图
                     b = BitmapFactory.decodeByteArray(data, 0, data.size)
-                    val rotaBitmap = ImageUitl.getRotateBitmap(b, 90.0f)
+                    val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
+                    val degree = getCameraRotationDegree(cameraId)
+                    val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
                     if (rotaBitmap != null) {
                         FileUtil.saveBitmap(rotaBitmap)
                     }
@@ -108,8 +114,10 @@ object CameraManager {
                 maxHeight)
         mParams?.setPreviewSize(previewSize?.width!!, previewSize.height)
 
-        // 旋转，把预览垂直
-        mCamera?.setDisplayOrientation(90)
+        // 旋转，把预览垂直, 不同的设备角度不同
+        val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
+        val degree = getCameraRotationDegree(cameraId)
+        mCamera?.setDisplayOrientation(degree)
 
         // 打印支持的聚集模式
         CameraUtil.printSupportFocusMode(mParams)
@@ -170,4 +178,27 @@ object CameraManager {
         return cameraId
     }
 
+    fun getCameraRotationDegree(cameraId: Int): Int {
+        val info = Camera.CameraInfo()
+        Camera.getCameraInfo(cameraId, info)
+        val windowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val rotation = windowManager.defaultDisplay.rotation
+        var degrees = 0
+        when (rotation) {
+            Surface.ROTATION_0 -> degrees = 0
+            Surface.ROTATION_90 -> degrees = 90
+            Surface.ROTATION_180 -> degrees = 180
+            Surface.ROTATION_270 -> degrees = 270
+        }
+        var result: Int
+        //前置
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360
+            result = (360 - result) % 360
+        } else {
+            result = (info.orientation - degrees + 360) % 360
+        }//后置
+
+        return result
+    }
 }
