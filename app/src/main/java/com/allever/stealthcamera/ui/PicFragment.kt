@@ -2,7 +2,7 @@ package com.allever.stealthcamera.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import com.allever.stealthcamera.R
  * Created by Allever on 18/5/16.
  */
 
-class PicFragment : Fragment {
+class PicFragment : androidx.fragment.app.Fragment {
     private var mImgPath: String? = null
 
     constructor() {}

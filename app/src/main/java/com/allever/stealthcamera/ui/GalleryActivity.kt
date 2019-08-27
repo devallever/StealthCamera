@@ -1,9 +1,9 @@
 package com.allever.stealthcamera.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 
 import com.allever.stealthcamera.R
 import com.allever.stealthcamera.ui.adapter.GalleryPagerAdapter
@@ -17,9 +17,9 @@ import java.util.ArrayList
  */
 
 class GalleryActivity : AppCompatActivity() {
-    private var mVp: ViewPager? = null
+    private var mVp: androidx.viewpager.widget.ViewPager? = null
     private var mAdapter: GalleryPagerAdapter? = null
-    private var mFragmentList: MutableList<Fragment>? = null
+    private var mFragmentList: MutableList<androidx.fragment.app.Fragment>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)

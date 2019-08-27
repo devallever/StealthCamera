@@ -7,10 +7,10 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.FileProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -30,7 +30,7 @@ import java.io.File
 class PictureActivity : AppCompatActivity() {
     private var mFilePathList: List<String>? = null
     private var mAdapter: PicAdapter? = null
-    private var mRv: RecyclerView? = null
+    private var mRv: androidx.recyclerview.widget.RecyclerView? = null
     private var mPkg = ""
 
     /**
@@ -94,7 +94,7 @@ class PictureActivity : AppCompatActivity() {
     private fun initView() {
         mRv = findViewById(R.id.id_picture_rv)
         mAdapter = PicAdapter(this, mFilePathList!!)
-        mRv!!.layoutManager = GridLayoutManager(this, 3)
+        mRv!!.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
         mRv!!.adapter = mAdapter
 
         mRv!!.addOnItemTouchListener(RecyclerItemClickListener(this, mRv!!, object : RecyclerItemClickListener.OnItemClickListener {
