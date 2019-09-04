@@ -1,7 +1,6 @@
 package com.allever.stealthcamera.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 
 /**
  * Created by Allever on 18/5/11.
@@ -9,6 +8,7 @@ import android.content.SharedPreferences
 
 object SPUtil {
     private val KEY_PRIVATE = "is_show"
+    private val KEY_FRONT_CAMERA = "KEY_FRONT_CAMERA"
     private val SP_NAME = "setting"
     private val KEY_Y_VALUE = "y_value"
     private val KEY_X_VALUE = "x_value"
@@ -18,7 +18,7 @@ object SPUtil {
         }
         val editor = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit()
         editor.putBoolean(KEY_PRIVATE, value)
-        editor.commit()
+        editor.apply()
     }
 
     fun getShowPreview(context: Context?): Boolean {
@@ -26,8 +26,21 @@ object SPUtil {
             return false
         }
         val sharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-        val isPrivate = sharedPreferences.getBoolean(KEY_PRIVATE, true)
-        return isPrivate
+        return sharedPreferences.getBoolean(KEY_PRIVATE, true)
+    }
+
+    fun setUseFrontCamera(context: Context?, value: Boolean) {
+        if (context == null) {
+            return
+        }
+        val editor = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit()
+        editor.putBoolean(KEY_FRONT_CAMERA, value)
+        editor.apply()
+    }
+
+    fun getUseFrontCamera(context: Context?): Boolean {
+        val sharedPreferences = context?.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences?.getBoolean(KEY_FRONT_CAMERA, false) ?: false
     }
 
     fun setLastY(context: Context?, value: Float) {
@@ -36,7 +49,7 @@ object SPUtil {
         }
         val editor = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit()
         editor.putFloat(KEY_Y_VALUE, value)
-        editor.commit()
+        editor.apply()
     }
 
     fun setLastX(context: Context?, value: Float) {
@@ -45,7 +58,7 @@ object SPUtil {
         }
         val editor = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit()
         editor.putFloat(KEY_Y_VALUE, value)
-        editor.commit()
+        editor.apply()
     }
 
     fun getLastY(context: Context?): Float {

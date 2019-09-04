@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="black">#000000</color>
+
     <color name="text_white">#FFFFFF</color>
     <color name="text_turquoise">#00FFFF</color>
     <color name="divide_line_white">#FFFFFF</color>

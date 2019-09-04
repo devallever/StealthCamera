@@ -98,4 +98,12 @@ object CameraUtil {
     fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
     }
+
+    fun getCameraId(front: Boolean): Int {
+        return if (front) {
+            Camera.CameraInfo.CAMERA_FACING_FRONT
+        } else {
+            Camera.CameraInfo.CAMERA_FACING_BACK
+        }
+    }
 }

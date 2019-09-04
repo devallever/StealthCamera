@@ -3,12 +3,14 @@ package com.allever.stealthcamera;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Handler;
 import android.os.IBinder;
+
 import androidx.annotation.Nullable;
 
+import com.allever.stealthcamera.utils.CameraUtil;
 import com.allever.stealthcamera.utils.FloatWindowUtil;
+import com.allever.stealthcamera.utils.SPUtil;
 
 
 /**
@@ -41,7 +43,7 @@ public class FloatWindowService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        CameraManager.INSTANCE.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+        CameraManager.INSTANCE.openCamera(CameraUtil.INSTANCE.getCameraId(SPUtil.INSTANCE.getUseFrontCamera(this)));
         //没有悬浮窗显示，则创建悬浮窗。
         if (!FloatWindowUtil.isFloatWindowShowing()) {
             mHandler.post(new Runnable() {

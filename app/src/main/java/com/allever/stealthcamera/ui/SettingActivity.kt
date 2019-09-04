@@ -3,10 +3,8 @@ package com.allever.stealthcamera.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 
 import com.allever.stealthcamera.FloatWindowService
 import com.allever.stealthcamera.R
@@ -17,8 +15,8 @@ import com.allever.stealthcamera.utils.SPUtil
  */
 
 class SettingActivity : AppCompatActivity(), View.OnClickListener {
-    private var mRlPreviewCont: RelativeLayout? = null
-    private var mIvPreview: ImageView? = null
+    private lateinit var mIvPreview: ImageView
+    private lateinit var mIvFrontCameraSwitch: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +31,25 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        mRlPreviewCont = findViewById(R.id.id_setting_rl_preview_container)
+        findViewById<View>(R.id.id_setting_rl_preview_container).setOnClickListener(this)
         mIvPreview = findViewById(R.id.id_setting_iv_prieview)
-        mRlPreviewCont!!.setOnClickListener(this)
-        mIvPreview!!.setOnClickListener(this)
+        mIvPreview.setOnClickListener(this)
 
-        refreshCb()
+        findViewById<View>(R.id.id_setting_rl_camera_container).setOnClickListener(this)
+        mIvFrontCameraSwitch = findViewById(R.id.id_setting_iv_front_camera)
+        mIvFrontCameraSwitch.setOnClickListener(this)
+
+        setSwitch(mIvPreview, SPUtil.getShowPreview(this))
+        setSwitch(mIvFrontCameraSwitch, SPUtil.getUseFrontCamera(this))
     }
 
-    private fun refreshCb() {
-        if (SPUtil.getShowPreview(this)) {
-            Log.d(TAG, "refreshCb: isShow = " + SPUtil.getShowPreview(this))
-            mIvPreview!!.setImageResource(R.drawable.ic_preview_on)
+    private fun setSwitch(target: ImageView, switch: Boolean) {
+        if (switch) {
+            target.setImageResource(R.drawable.ic_preview_on)
         } else {
-            mIvPreview!!.setImageResource(R.drawable.ic_preview_off)
+            target.setImageResource(R.drawable.ic_switch_off)
         }
+
     }
 
     override fun onClick(v: View) {
@@ -55,16 +57,26 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         when (id) {
             R.id.id_main_ll_menu_container, R.id.id_setting_iv_prieview -> {
                 SPUtil.setShowPreview(this@SettingActivity, !SPUtil.getShowPreview(this@SettingActivity))
-                refreshCb()
-                if (FloatWindowService.mService != null) {
-                    //相机已启动
-                    val intent = Intent(this, FloatWindowService::class.java)
-                    stopService(intent)
-                    startService(intent)
-                }
+                setSwitch(mIvPreview, SPUtil.getShowPreview(this))
+                restartFloatService()
+            }
+
+            R.id.id_setting_iv_front_camera -> {
+                SPUtil.setUseFrontCamera(this@SettingActivity, !SPUtil.getUseFrontCamera(this@SettingActivity))
+                setSwitch(mIvFrontCameraSwitch, SPUtil.getUseFrontCamera(this))
+                restartFloatService()
             }
             else -> {
             }
+        }
+    }
+
+    private fun restartFloatService() {
+        if (FloatWindowService.mService != null) {
+            //相机已启动
+            val intent = Intent(this, FloatWindowService::class.java)
+            stopService(intent)
+            startService(intent)
         }
     }
 

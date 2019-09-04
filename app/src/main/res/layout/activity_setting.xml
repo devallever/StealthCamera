@@ -12,26 +12,26 @@
         android:src="@drawable/ic_title"/>
     <RelativeLayout
         android:id="@+id/id_setting_rl_preview_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/text_white">
+        style="@style/setting_item_container">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="显示预览"
-            android:textColor="@color/activity_bg_black"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:textSize="16sp"/>
+            style="@style/setting_item_label"/>
 
         <ImageView
             android:id="@+id/id_setting_iv_prieview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_preview_off"
-            android:layout_alignParentRight="true"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"/>
+            style="@style/setting_item_right_iv"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_setting_rl_camera_container"
+        style="@style/setting_item_container">
+        <TextView
+            android:text="使用前置"
+            style="@style/setting_item_label"/>
+
+        <ImageView
+            android:id="@+id/id_setting_iv_front_camera"
+            style="@style/setting_item_right_iv"/>
     </RelativeLayout>
 
 </LinearLayout>

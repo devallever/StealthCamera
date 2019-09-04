@@ -6,20 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.Toast
 
 import com.allever.stealthcamera.CameraManager
 import com.allever.stealthcamera.R
 import com.allever.stealthcamera.ui.view.CameraSurfaceView
+import com.allever.stealthcamera.utils.CameraUtil
+import com.allever.stealthcamera.utils.SPUtil
 
 /**
  * Created by Allever on 18/5/12.
  */
 
 class CameraActivity : AppCompatActivity() {
-    private var mIvTake: ImageView? = null
-    private var mFl: FrameLayout? = null
+    private lateinit var mFl: FrameLayout
     private var cameraSurfaceView: CameraSurfaceView? = null
     private var params: FrameLayout.LayoutParams? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +30,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mIvTake = findViewById(R.id.id_camera_iv_take)
-        mIvTake!!.setOnClickListener {
+        findViewById<View>(R.id.id_camera_iv_take).setOnClickListener {
             CameraManager.takePicture()
             Toast.makeText(this@CameraActivity, "Done", Toast.LENGTH_SHORT).show()
         }
@@ -46,15 +45,15 @@ class CameraActivity : AppCompatActivity() {
     override fun onResume() {
         Log.d(TAG, "onResume: ")
         super.onResume()
-        CameraManager.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK)
+        CameraManager.openCamera(CameraUtil.getCameraId(SPUtil.getUseFrontCamera(this)))
         cameraSurfaceView = CameraSurfaceView(this)
-        mFl!!.addView(cameraSurfaceView, params)
+        mFl.addView(cameraSurfaceView, params)
     }
 
     override fun onStop() {
         Log.d(TAG, "onStop: ")
         super.onStop()
-        mFl!!.removeView(cameraSurfaceView)
+        mFl.removeView(cameraSurfaceView)
         CameraManager.releaseCamera()
         cameraSurfaceView = null
     }
