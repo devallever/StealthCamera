@@ -16,6 +16,7 @@ import android.content.Context
 import android.view.Surface
 import android.view.WindowManager
 import com.allever.lib.common.app.App
+import android.hardware.Camera.CameraInfo
 
 
 /**
@@ -29,18 +30,17 @@ object CameraManager {
     private var mParams: Camera.Parameters? = null
 
     private var mCamera: Camera? = null
+    private var mCameraId = CameraInfo.CAMERA_FACING_BACK
 
     fun openCamera(tagInfo: Int) {
-        if (mCamera == null) {
-            try {
-                mCamera = Camera.open(getCameraInfoId(tagInfo))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return
-            }
-
-            //mCamera = Camera.open(getCameraInfoId(tagInfo));
+        try {
+            mCameraId = getCameraInfoId(tagInfo)
+            mCamera = Camera.open(mCameraId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return
         }
+
     }
 
     fun stopCamera() {
@@ -68,7 +68,7 @@ object CameraManager {
                     // data是字节数据，将其解析成位图
                     b = BitmapFactory.decodeByteArray(data, 0, data.size)
                     val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
-                    val degree = getCameraRotationDegree(cameraId)
+                    val degree = getRotationOnTakePickPic(cameraId)
                     val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
                     if (rotaBitmap != null) {
                         FileUtil.saveBitmap(rotaBitmap)
@@ -115,8 +115,8 @@ object CameraManager {
         mParams?.setPreviewSize(previewSize?.width!!, previewSize.height)
 
         // 旋转，把预览垂直, 不同的设备角度不同
-        val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
-        val degree = getCameraRotationDegree(cameraId)
+        val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_FRONT)
+        val degree = getCameraRotationDegreeOnPreview(cameraId)
         mCamera?.setDisplayOrientation(degree)
 
         // 打印支持的聚集模式
