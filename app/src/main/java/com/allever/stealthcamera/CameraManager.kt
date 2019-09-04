@@ -178,7 +178,27 @@ object CameraManager {
         return cameraId
     }
 
-    fun getCameraRotationDegree(cameraId: Int): Int {
+
+    fun getRotationOnTakePickPic(cameraId: Int): Int {
+        val info = Camera.CameraInfo()
+        Camera.getCameraInfo(cameraId, info)
+        val windowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val rotation = windowManager.defaultDisplay.rotation
+        var degrees = 0
+        when (rotation) {
+            Surface.ROTATION_0 -> degrees = 0
+            Surface.ROTATION_90 -> degrees = 90
+            Surface.ROTATION_180 -> degrees = 180
+            Surface.ROTATION_270 -> degrees = 270
+        }
+        return if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
+            (info.orientation - degrees + 360) % 360
+        } else {  // back-facing camera
+            (info.orientation + degrees) % 360
+        }
+    }
+
+    fun getCameraRotationDegreeOnPreview(cameraId: Int): Int {
         val info = Camera.CameraInfo()
         Camera.getCameraInfo(cameraId, info)
         val windowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
