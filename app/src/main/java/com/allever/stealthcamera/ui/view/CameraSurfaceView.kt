@@ -2,7 +2,6 @@ package com.allever.stealthcamera.ui.view
 
 import android.content.Context
 import android.graphics.PixelFormat
-import android.graphics.Point
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -21,9 +20,9 @@ class CameraSurfaceView @JvmOverloads constructor(internal var mContext: Context
     init {
         mSurfaceHolder = this.holder
         //translucent半透明 transparent透明
-        mSurfaceHolder!!.setFormat(PixelFormat.TRANSPARENT)
-        mSurfaceHolder!!.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
-        mSurfaceHolder!!.addCallback(this)
+        mSurfaceHolder?.setFormat(PixelFormat.TRANSPARENT)
+        mSurfaceHolder?.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
+        mSurfaceHolder?.addCallback(this)
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {

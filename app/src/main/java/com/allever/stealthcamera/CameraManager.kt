@@ -59,27 +59,29 @@ object CameraManager {
 
 
     fun takePicture() {
-        if (isPreviewing && mCamera != null && !isCapturing) {
-            isCapturing = true
-            mCamera?.takePicture(null, null, Camera.PictureCallback { data, camera ->
-                Log.d(TAG, "onPictureTaken: ")
-                val b: Bitmap?
-                if (null != data) {
-                    // data是字节数据，将其解析成位图
-                    b = BitmapFactory.decodeByteArray(data, 0, data.size)
-                    val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
-                    val degree = getRotationOnTakePickPic(cameraId)
-                    val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
-                    if (rotaBitmap != null) {
-                        FileUtil.saveBitmap(rotaBitmap)
-                    }
-                }
-                // 一般Camera在pictureCallBack后会暂停PreView，发现三星手机在底层封装能自动重启PreView功能
-                mCamera?.startPreview()
-                isPreviewing = true
-                isCapturing = false
-            })
+        if (!isPreviewing || isCapturing) {
+            return
         }
+
+        isCapturing = true
+        mCamera?.takePicture(null, null, Camera.PictureCallback { data, camera ->
+            Log.d(TAG, "onPictureTaken: ")
+            val b: Bitmap?
+            if (null != data) {
+                // data是字节数据，将其解析成位图
+                b = BitmapFactory.decodeByteArray(data, 0, data.size)
+                val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
+                val degree = getRotationOnTakePickPic(cameraId)
+                val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
+                if (rotaBitmap != null) {
+                    FileUtil.saveBitmap(rotaBitmap)
+                }
+            }
+            // 一般Camera在pictureCallBack后会暂停PreView，发现三星手机在底层封装能自动重启PreView功能
+            mCamera?.startPreview()
+            isPreviewing = true
+            isCapturing = false
+        })
     }
 
     /**
@@ -89,8 +91,7 @@ object CameraManager {
      */
     fun startPreview(holder: SurfaceHolder,
                      maxHeight: Int) {
-        Log.d(TAG,
-                "maxHeight = $maxHeight")
+        Log.d(TAG, "maxHeight = $maxHeight")
         if (isPreviewing) {
             mCamera?.setPreviewCallback(null)
             mCamera?.stopPreview()
