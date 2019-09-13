@@ -8,7 +8,7 @@ ext{
     versionCode = 1
     versionName = "1.0"
 
-    umengAppKey = "3d61ebd3570df3add50003ac"
+    umengAppKey = "5d7c00144ca3573b34000f1f"
 
     //C:\Users\Allever\AndroidStudioProjects/com.allever.app.jks
     signingStoreFile = '../../com.allever.app.jks'
