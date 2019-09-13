@@ -32,6 +32,10 @@ object CameraManager {
     private var mCamera: Camera? = null
     private var mCameraId = CameraInfo.CAMERA_FACING_BACK
 
+    init {
+        FileUtil.createSaveDir()
+    }
+
     fun openCamera(tagInfo: Int) {
         try {
             mCameraId = getCameraInfoId(tagInfo)

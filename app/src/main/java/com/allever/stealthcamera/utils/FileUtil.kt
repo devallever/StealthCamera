@@ -21,14 +21,14 @@ object FileUtil {
             val lastList: MutableList<String>
             list = ArrayList()
             lastList = ArrayList()
-            val dir = File(initPath())
+            val dir = File(createSaveDir())
             val files = dir.listFiles()
             if (files != null) {
                 var fileName: String
                 var filePath: String
                 for (i in files.indices) {
                     fileName = files[i].name
-                    filePath = initPath() + "/" + fileName
+                    filePath = createSaveDir() + "/" + fileName
                     list.add(filePath)
                 }
             }
@@ -42,13 +42,14 @@ object FileUtil {
     /**初始化保存路径
      * @return
      */
-    private fun initPath(): String {
-        var path: String?
-        //path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + "zhifei/spycamera";
-        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath + "/" + "zhifei/spycamera"
+    public fun createSaveDir(): String {
+        val path: String?
+        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath + "/" + "Allever/stealthcamera"
         val f = File(path)
         if (!f.exists()) {
             f.mkdirs()
+            val noMedia = File("$path${File.separator}.nomedia")
+            noMedia.createNewFile()
         }
         return path
     }
@@ -58,7 +59,7 @@ object FileUtil {
      */
     fun saveBitmap(b: Bitmap) {
 
-        val path = initPath()
+        val path = createSaveDir()
         val dataTake = System.currentTimeMillis()
         val jpegName = "$path/$dataTake.jpg"
         try {
