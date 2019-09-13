@@ -61,6 +61,13 @@ if (propFile.canRead()) {
     android.buildTypes.release.signingConfig = null
 }
 
+//引入aar包需加
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -75,6 +82,7 @@ dependencies {
     //local
     implementation project(':permission')
     implementation project(':common')
+    implementation(name: "Toolkit-1.1", ext: 'aar')
 
 }
 repositories {

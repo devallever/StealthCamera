@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.allever.stealthcamera.BuildConfig
 import com.allever.stealthcamera.R
 import com.allever.stealthcamera.RecyclerItemClickListener
@@ -24,9 +27,9 @@ import java.io.File
  */
 
 class PictureActivity : AppCompatActivity() {
-    private var mFilePathList: List<String>? = null
+    private var mFilePathList: MutableList<String>? = null
     private var mAdapter: PicAdapter? = null
-    private var mRv: androidx.recyclerview.widget.RecyclerView? = null
+    private var mRv: RecyclerView? = null
     private var mPkg = ""
 
     /**
@@ -89,9 +92,20 @@ class PictureActivity : AppCompatActivity() {
 
     private fun initView() {
         mRv = findViewById(R.id.id_picture_rv)
-        mAdapter = PicAdapter(this, mFilePathList!!)
-        mRv!!.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
+        mAdapter = PicAdapter(this, R.layout.item_picture, mFilePathList!!)
+        mRv?.layoutManager = GridLayoutManager(this, 3)
         mRv!!.adapter = mAdapter
+
+//        mRv?.addItemDecoration(object : RecyclerView.ItemDecoration() {
+//            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+//                val pos = parent.getChildLayoutPosition(view)
+//                if (pos == 0) {
+//                    outRect.left = firstItemMarginLeft
+//                } else if (pos + 1 == mSelectedData.size) {
+//                    outRect.right = lastItemMarginRight
+//                }
+//            }
+//        })
 
         mRv!!.addOnItemTouchListener(RecyclerItemClickListener(this, mRv!!, object : RecyclerItemClickListener.OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {

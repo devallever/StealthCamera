@@ -15,7 +15,7 @@ import java.util.ArrayList
 
 object FileUtil {
 
-    val allFilePath: List<String>
+    val allFilePath: MutableList<String>
         get() {
             val list: MutableList<String>
             val lastList: MutableList<String>
