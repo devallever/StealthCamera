@@ -68,7 +68,7 @@ object CameraManager {
                     // data是字节数据，将其解析成位图
                     b = BitmapFactory.decodeByteArray(data, 0, data.size)
                     val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
-                    val degree = getCameraRotationDegree(cameraId)
+                    val degree = getRotationOnTakePickPic(cameraId)
                     val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
                     if (rotaBitmap != null) {
                         FileUtil.saveBitmap(rotaBitmap)
@@ -116,7 +116,7 @@ object CameraManager {
 
         // 旋转，把预览垂直, 不同的设备角度不同
         val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
-        val degree = getCameraRotationDegree(cameraId)
+        val degree = getCameraRotationDegreeOnPreview(cameraId)
         mCamera?.setDisplayOrientation(degree)
 
         // 打印支持的聚集模式
@@ -191,7 +191,7 @@ object CameraManager {
             Surface.ROTATION_180 -> degrees = 180
             Surface.ROTATION_270 -> degrees = 270
         }
-        return if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
+        return if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             (info.orientation - degrees + 360) % 360
         } else {  // back-facing camera
             (info.orientation + degrees) % 360
