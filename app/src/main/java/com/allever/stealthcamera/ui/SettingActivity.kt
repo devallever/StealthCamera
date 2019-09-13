@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
+import com.allever.lib.common.util.FeedbackHelper
 
 import com.allever.stealthcamera.FloatWindowService
 import com.allever.stealthcamera.R
@@ -41,6 +42,9 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
 
         setSwitch(mIvPreview, SPUtil.getShowPreview(this))
         setSwitch(mIvFrontCameraSwitch, SPUtil.getUseFrontCamera(this))
+
+        findViewById<View>(R.id.id_setting_rl_feedback_container).setOnClickListener(this)
+        findViewById<View>(R.id.id_setting_rl_about_container).setOnClickListener(this)
     }
 
     private fun setSwitch(target: ImageView, switch: Boolean) {
@@ -64,6 +68,12 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 SPUtil.setUseFrontCamera(this@SettingActivity, !SPUtil.getUseFrontCamera(this@SettingActivity))
                 setSwitch(mIvFrontCameraSwitch, SPUtil.getUseFrontCamera(this))
                 restartFloatService()
+            }
+            R.id.id_setting_rl_feedback_container -> {
+                FeedbackHelper.feedback(this)
+            }
+            R.id.id_setting_rl_about_container -> {
+                AboutActivity.start(this)
             }
             else -> {
             }

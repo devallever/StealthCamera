@@ -36,6 +36,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.allever.stealthcamera.ui.GalleryActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.allever.stealthcamera.ui.AboutActivity"
+            android:screenOrientation="portrait"/>
         <service android:name="com.allever.stealthcamera.FloatWindowService"></service>
 
         <provider
