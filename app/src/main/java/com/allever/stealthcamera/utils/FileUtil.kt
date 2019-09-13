@@ -49,7 +49,7 @@ object FileUtil {
         if (!f.exists()) {
             f.mkdirs()
             val noMedia = File("$path${File.separator}.nomedia")
-            noMedia.createNewFile()
+//            noMedia.createNewFile()
         }
         return path
     }
