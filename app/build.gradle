@@ -5,16 +5,41 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.allever.stealth.camera"
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId "${rootProject.ext.applicationId}"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName "${rootProject.ext.versionName}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+
+    //打包配置----------------------------------------------------------------
     signingConfigs {
-        release
+        release {
+            storeFile file("${rootProject.ext.signingStoreFile}")
+            storePassword "${rootProject.ext.signingStorePassword}"
+            keyAlias "${rootProject.ext.signingKeyAlias}"
+            keyPassword "${rootProject.ext.signingKeyPassword}"
+        }
     }
+    applicationVariants.all {
+        variant ->
+            if (variant.buildType.name.equals('release')) {
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "${defaultConfig.applicationId}_(Release)_V${defaultConfig.versionName}_C${defaultConfig.versionCode}_${variant.flavorName}_(Build${releaseTime()}).apk"
+                        output.outputFileName = new File(fileName)
+                        //com.allever.security.photo.browser_(Release)_V1.0_C1_(Build201908251506).apk
+                    }
+                }
+            }
+    }
+    //打包配置----------------------------------------------------------------
+
+
+
     buildTypes {
         release {
             minifyEnabled true
@@ -38,28 +63,11 @@ android {
     }
 }
 
-def releaseTime() {
+//打包时间
+static def releaseTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("Asia/Chongqing"))
 }
 
-def Properties props = new Properties()
-def propFile = new File('/root/xi.properties')
-if (propFile.canRead()) {
-    props.load(new FileInputStream(propFile))
-
-    if (props != null && props.containsKey('STORE_FILE') && props.containsKey('KEY_ALIAS') && props.containsKey('PASSWORD')) {
-        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
-        android.signingConfigs.release.storePassword = props['PASSWORD']
-        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-        android.signingConfigs.release.keyPassword = props['PASSWORD']
-    } else {
-        println 'signing.properties found but some entries are missing'
-        android.buildTypes.release.signingConfig = null
-    }
-} else {
-    println 'signing.properties not found'
-    android.buildTypes.release.signingConfig = null
-}
 
 //引入aar包需加
 repositories {
