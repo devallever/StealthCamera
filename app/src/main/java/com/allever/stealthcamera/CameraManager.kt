@@ -70,7 +70,7 @@ object CameraManager {
             if (null != data) {
                 // data是字节数据，将其解析成位图
                 b = BitmapFactory.decodeByteArray(data, 0, data.size)
-                val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
+                val cameraId = getCameraInfoId(mCameraId)
                 val degree = getRotationOnTakePickPic(cameraId)
                 val rotaBitmap = ImageUtil.getRotateBitmap(b, degree.toFloat())
                 if (rotaBitmap != null) {
@@ -116,8 +116,8 @@ object CameraManager {
         mParams?.setPreviewSize(previewSize?.width!!, previewSize.height)
 
         // 旋转，把预览垂直, 不同的设备角度不同
-        val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_FRONT)
-        val degree = getCameraRotationDegreeOnPreview(cameraId)
+//        val cameraId = getCameraInfoId(CameraInfo.CAMERA_FACING_FRONT)
+        val degree = getCameraRotationDegreeOnPreview(mCameraId)
         mCamera?.setDisplayOrientation(degree)
 
         // 打印支持的聚集模式
@@ -163,7 +163,7 @@ object CameraManager {
      */
     private fun getCameraInfoId(tagInfo: Int): Int {
         Log.d(TAG, "getCameraInfoId: ")
-        val cameraInfo = Camera.CameraInfo()
+        val cameraInfo = CameraInfo()
         // 开始遍历摄像头，得到camera info
         val cameraCount = Camera.getNumberOfCameras()
         Log.d(TAG, "getCameraInfoId: cameraCount = $cameraCount")
@@ -180,8 +180,8 @@ object CameraManager {
     }
 
 
-    fun getRotationOnTakePickPic(cameraId: Int): Int {
-        val info = Camera.CameraInfo()
+    private fun getRotationOnTakePickPic(cameraId: Int): Int {
+        val info = CameraInfo()
         Camera.getCameraInfo(cameraId, info)
         val windowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val rotation = windowManager.defaultDisplay.rotation
@@ -199,8 +199,8 @@ object CameraManager {
         }
     }
 
-    fun getCameraRotationDegreeOnPreview(cameraId: Int): Int {
-        val info = Camera.CameraInfo()
+    private fun getCameraRotationDegreeOnPreview(cameraId: Int): Int {
+        val info = CameraInfo()
         Camera.getCameraInfo(cameraId, info)
         val windowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val rotation = windowManager.defaultDisplay.rotation
@@ -213,7 +213,7 @@ object CameraManager {
         }
         var result: Int
         //前置
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360
             result = (360 - result) % 360
         } else {
