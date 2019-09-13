@@ -53,8 +53,7 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        val id = v.id
-        when (id) {
+        when (v.id) {
             R.id.id_main_ll_menu_container, R.id.id_setting_iv_prieview -> {
                 SPUtil.setShowPreview(this@SettingActivity, !SPUtil.getShowPreview(this@SettingActivity))
                 setSwitch(mIvPreview, SPUtil.getShowPreview(this))
@@ -81,6 +80,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     companion object {
-        private val TAG = "SettingActivity"
+        private const val TAG = "SettingActivity"
     }
 }

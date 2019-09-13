@@ -2,14 +2,12 @@ package com.allever.stealthcamera.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-
-import com.bumptech.glide.Glide
 import com.allever.stealthcamera.R
+import com.bumptech.glide.Glide
 
 /**
  * Created by Allever on 18/5/16.
@@ -18,7 +16,7 @@ import com.allever.stealthcamera.R
 class PicFragment : androidx.fragment.app.Fragment {
     private var mImgPath: String? = null
 
-    constructor() {}
+    constructor()
     @SuppressLint("ValidFragment")
     constructor(imgPath: String) {
         mImgPath = imgPath

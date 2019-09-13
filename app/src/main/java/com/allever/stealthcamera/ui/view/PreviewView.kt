@@ -14,6 +14,7 @@ import com.allever.stealthcamera.R
 import com.allever.stealthcamera.utils.DisplayUtil
 import com.allever.stealthcamera.utils.FloatWindowUtil
 import com.allever.stealthcamera.utils.SPUtil
+import kotlin.math.abs
 
 /**
  * Created by Allever on 18/5/11.
@@ -67,14 +68,14 @@ class PreviewView(private val mContext: Context) : FrameLayout(mContext) {
         }
 
         val surfaceView = CameraSurfaceView(mContext)
-        val params = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT)
+        val params = LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT)
         if (SPUtil.getShowPreview(mContext)) {
             this.addView(surfaceView, params)
         } else {
             // 把surfaceView设置成大小都为1，以便后面图片覆盖
-            val smallParams = FrameLayout.LayoutParams(
+            val smallParams = LayoutParams(
                     1, 1)
             smallParams.gravity = Gravity.CENTER
             this.addView(surfaceView, smallParams)
@@ -111,7 +112,7 @@ class PreviewView(private val mContext: Context) : FrameLayout(mContext) {
             }
             MotionEvent.ACTION_UP ->
                 // 如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen和yInScreen相等，则视为触发了单击事件。
-                if (Math.abs(xDownInScreen - xInScreen) <= 20 && Math.abs(yDownInScreen - yInScreen) <= 20) {
+                if (abs(xDownInScreen - xInScreen) <= 20 && Math.abs(yDownInScreen - yInScreen) <= 20) {
                     CameraManager.takePicture()
 
                     Toast.makeText(mContext, "Done",

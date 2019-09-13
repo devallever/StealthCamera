@@ -2,7 +2,6 @@ package com.allever.stealthcamera.utils
 
 import android.content.Context
 import android.graphics.Point
-import android.util.DisplayMetrics
 import android.util.Log
 
 /**
@@ -40,10 +39,10 @@ object DisplayUtil {
      */
     fun getScreenMetrics(context: Context): Point {
         val dm = context.resources.displayMetrics
-        val w_screen = dm.widthPixels
-        val h_screen = dm.heightPixels
-        Log.i(TAG, "Screen---Width = " + w_screen + " Height = " + h_screen + " densityDpi = " + dm.densityDpi)
-        return Point(w_screen, h_screen)
+        val wScreen = dm.widthPixels
+        val hScreen = dm.heightPixels
+        Log.i(TAG, "Screen---Width = " + wScreen + " Height = " + hScreen + " densityDpi = " + dm.densityDpi)
+        return Point(wScreen, hScreen)
 
     }
 

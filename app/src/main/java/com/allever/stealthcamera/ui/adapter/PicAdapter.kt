@@ -14,7 +14,7 @@ import com.allever.stealthcamera.R
  * Created by Allever on 18/5/12.
  */
 
-class PicAdapter(private val mContext: Context, private val mFilePathList: List<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<PicAdapter.MyVH>() {
+class PicAdapter(private val mContext: Context, private val mFilePathList: List<String>) : RecyclerView.Adapter<PicAdapter.MyVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
         val view = LayoutInflater.from(mContext).inflate(R.layout.item_picture, parent, false)
@@ -29,12 +29,12 @@ class PicAdapter(private val mContext: Context, private val mFilePathList: List<
         return mFilePathList.size
     }
 
-    inner class MyVH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    inner class MyVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ivPic: ImageView = itemView.findViewById(R.id.id_item_iv_pic)
 
     }
 
     companion object {
-        private val TAG = "PicAdapter"
+        private const val TAG = "PicAdapter"
     }
 }

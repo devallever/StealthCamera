@@ -13,9 +13,9 @@ import com.allever.stealthcamera.utils.DisplayUtil
  * Created by Allever on 18/5/11.
  */
 
-class CameraSurfaceView @JvmOverloads constructor(internal var mContext: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : SurfaceView(mContext, attrs, defStyle), SurfaceHolder.Callback {
+class CameraSurfaceView @JvmOverloads constructor(private var mContext: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : SurfaceView(mContext, attrs, defStyle), SurfaceHolder.Callback {
 
-    internal var mSurfaceHolder: SurfaceHolder? = null
+    private var mSurfaceHolder: SurfaceHolder? = null
 
     init {
         mSurfaceHolder = this.holder

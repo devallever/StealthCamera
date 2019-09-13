@@ -10,7 +10,7 @@ import android.view.View
  * Created by Allever on 2016/12/16.
  */
 
-class RecyclerItemClickListener(context: Context, recyclerView: androidx.recyclerview.widget.RecyclerView, private val mListener: OnItemClickListener?) : androidx.recyclerview.widget.RecyclerView.OnItemTouchListener {
+class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView, private val mListener: OnItemClickListener?) : RecyclerView.OnItemTouchListener {
     private val mGestureDetector: GestureDetector
 
     init {
@@ -34,7 +34,7 @@ class RecyclerItemClickListener(context: Context, recyclerView: androidx.recycle
 
     }
 
-    override fun onInterceptTouchEvent(view: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
+    override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
         val childView = view.findChildViewUnder(e.x, e.y)
         if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
             mListener.onItemClick(childView, view.getChildAdapterPosition(childView))
@@ -42,7 +42,7 @@ class RecyclerItemClickListener(context: Context, recyclerView: androidx.recycle
         return false
     }
 
-    override fun onTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent) {
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
 
     }
 

@@ -7,20 +7,16 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.FileProvider
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.allever.stealthcamera.BuildConfig
-
+import com.allever.stealthcamera.R
 import com.allever.stealthcamera.RecyclerItemClickListener
 import com.allever.stealthcamera.ui.adapter.PicAdapter
-import com.allever.stealthcamera.R
 import com.allever.stealthcamera.utils.FileUtil
-
 import java.io.File
 
 /**
@@ -43,7 +39,7 @@ class PictureActivity : AppCompatActivity() {
             val packageManager = packageManager
             val apps = packageManager.queryIntentActivities(mainIntent, 0)
             var pkg = ""
-            var info: ResolveInfo? = null
+            var info: ResolveInfo?
             for (i in apps.indices) {
                 info = apps[i]
                 Log.e("TAG", info!!.activityInfo.loadLabel(packageManager).toString() + " pkgName "

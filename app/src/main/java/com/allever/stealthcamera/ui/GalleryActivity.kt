@@ -17,9 +17,9 @@ import java.util.ArrayList
  */
 
 class GalleryActivity : AppCompatActivity() {
-    private var mVp: androidx.viewpager.widget.ViewPager? = null
+    private var mVp: ViewPager? = null
     private var mAdapter: GalleryPagerAdapter? = null
-    private var mFragmentList: MutableList<androidx.fragment.app.Fragment>? = null
+    private var mFragmentList: MutableList<Fragment>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)

@@ -21,14 +21,14 @@ object FileUtil {
             val lastList: MutableList<String>
             list = ArrayList()
             lastList = ArrayList()
-            val dir = File(FileUtil.initPath())
+            val dir = File(initPath())
             val files = dir.listFiles()
             if (files != null) {
                 var fileName: String
                 var filePath: String
                 for (i in files.indices) {
                     fileName = files[i].name
-                    filePath = FileUtil.initPath() + "/" + fileName
+                    filePath = initPath() + "/" + fileName
                     list.add(filePath)
                 }
             }
@@ -42,8 +42,8 @@ object FileUtil {
     /**初始化保存路径
      * @return
      */
-    fun initPath(): String {
-        var path: String? = null
+    private fun initPath(): String {
+        var path: String?
         //path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + "zhifei/spycamera";
         path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath + "/" + "zhifei/spycamera"
         val f = File(path)

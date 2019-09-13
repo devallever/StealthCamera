@@ -7,7 +7,7 @@ import android.graphics.Matrix
  * Created by Allever on 18/5/11.
  */
 
-object ImageUitl {
+object ImageUtil {
     /**
      * 获取旋转后的图片
      * @param b

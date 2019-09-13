@@ -14,12 +14,13 @@ import com.allever.stealthcamera.utils.SPUtil;
 
 
 /**
- * Created by Allever on 18/5/11.
+ *
+ * @author Allever
+ * @date 18/5/11
  */
 
 public class FloatWindowService extends Service {
     private static final String TAG = "FloatWindowService";
-    private Context mContext;
     private Handler mHandler = new Handler();
 
     public static FloatWindowService mService;
@@ -27,7 +28,6 @@ public class FloatWindowService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
         mService = this;
     }
 

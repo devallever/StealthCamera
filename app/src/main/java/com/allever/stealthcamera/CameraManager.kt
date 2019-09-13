@@ -9,7 +9,7 @@ import android.view.SurfaceHolder
 
 import com.allever.stealthcamera.utils.CameraUtil
 import com.allever.stealthcamera.utils.FileUtil
-import com.allever.stealthcamera.utils.ImageUitl
+import com.allever.stealthcamera.utils.ImageUtil
 
 import java.io.IOException
 import android.content.Context
@@ -72,7 +72,7 @@ object CameraManager {
                 b = BitmapFactory.decodeByteArray(data, 0, data.size)
                 val cameraId = getCameraInfoId(Camera.CameraInfo.CAMERA_FACING_BACK)
                 val degree = getRotationOnTakePickPic(cameraId)
-                val rotaBitmap = ImageUitl.getRotateBitmap(b, degree.toFloat())
+                val rotaBitmap = ImageUtil.getRotateBitmap(b, degree.toFloat())
                 if (rotaBitmap != null) {
                     FileUtil.saveBitmap(rotaBitmap)
                 }

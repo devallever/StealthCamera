@@ -9,7 +9,7 @@ import android.view.View
  * https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650820073&idx=1&sn=9e084723624180f7ab28e54f2aef132c&scene=23&srcid=0506b08maFirw2pBvnewcDsp#rd
  */
 
-class ZoomOutPageTransformer : androidx.viewpager.widget.ViewPager.PageTransformer {
+class ZoomOutPageTransformer : ViewPager.PageTransformer {
 
     override fun transformPage(view: View, position: Float) {
         val pageWidth = view.width
@@ -51,8 +51,8 @@ class ZoomOutPageTransformer : androidx.viewpager.widget.ViewPager.PageTransform
     }
 
     companion object {
-        private val TAG = "ZoomOutPageTransformer"
-        private val MIN_SCALE = 0.8f
-        private val MIN_ALPHA = 0.5f
+        private const val TAG = "ZoomOutPageTransformer"
+        private const val MIN_SCALE = 0.8f
+        private const val MIN_ALPHA = 0.5f
     }
 }

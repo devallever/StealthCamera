@@ -1,6 +1,5 @@
 package com.allever.stealthcamera.ui
 
-import android.hardware.Camera
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
