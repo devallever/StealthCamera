@@ -5,8 +5,6 @@
     android:layout_height="120dp"
     android:id="@+id/id_item_iv_pic"
     android:scaleType="centerCrop"
-    android:layout_marginTop="4dp"
-    android:layout_marginStart="2dp"
-    android:layout_marginEnd="2dp">
+	android:layout_margin="1dp">
 
 </ImageView>
