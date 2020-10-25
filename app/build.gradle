@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "${rootProject.ext.applicationId}"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -27,8 +27,8 @@ android {
     flavorDimensions "mark"
     productFlavors {
         google {}
-        xiaomi {}
-        baidu {}
+//        xiaomi {}
+//        baidu {}
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
